@@ -1,6 +1,5 @@
 .header {
 	display: flex;
-	// align-items: center;
 	justify-content: space-between;
 	padding: 20px;
 
@@ -36,12 +35,12 @@
 		opacity: 0;
 		visibility: hidden;
 		transition: opacity $duration-normal, visibility $duration-normal;
+		-webkit-overflow-scrolling: touch;
 
 		@include active {
 			opacity: 1;
 			visibility: visible;
 		}
-		-webkit-overflow-scrolling: touch;
 	}
 
 	&__menu-button {
@@ -52,6 +51,14 @@
 		margin-top: 10px;
 		width: 26px;
 		height: 18px;
+
+		&-line {
+			display: block;
+			width: 26px;
+			height: 2px;
+			background-color: #282a33;
+			transition: transform $duration-normal, opacity $duration-normal / 2;
+		}
 
 		@include active {
 			.header__menu-button-line--first {
@@ -66,14 +73,6 @@
 				transform: translate(1px, -6px) rotate(45deg);
 			}
 		}
-
-		&-line {
-			display: block;
-			width: 26px;
-			height: 2px;
-			background-color: #282a33;
-			transition: transform $duration-normal, opacity $duration-normal / 2;
-		}
 	}
 
 	&__menu-list {
@@ -82,7 +81,6 @@
 		padding-top: 60px;
 		padding-left: 40px;
 		width: 100%;
-
 		gap: 40px;
 	}
 
@@ -98,6 +96,7 @@
 		@include hover {
 			color: $color-black;
 		}
+
 		@include active {
 			color: $color-black;
 		}
@@ -106,9 +105,8 @@
 	&__menu-image {
 		// position: absolute;
 		display: block;
-		margin-left: 64px;
 		margin-top: 22px;
-
+		margin-left: 64px;
 		opacity: 0;
 		transition: opacity $duration-normal;
 
