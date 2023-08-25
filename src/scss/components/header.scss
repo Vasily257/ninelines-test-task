@@ -1,7 +1,7 @@
 .header {
 	display: flex;
 	justify-content: space-between;
-	padding: 20px;
+	padding: 20px 20px 0;
 	height: fit-content;
 	background-color: $color-background;
 
@@ -71,7 +71,7 @@
 			display: block;
 			width: 26px;
 			height: 2px;
-			background-color: #282a33;
+			background-color: $color-text-primary;
 			transition: transform $duration-normal, opacity $duration-normal / 2;
 		}
 
@@ -97,10 +97,10 @@
 	&__menu-list {
 		display: flex;
 		flex-direction: column;
-		padding-top: 60px;
+		padding-top: 61px;
 		padding-left: 40px;
 		width: 100%;
-		gap: 40px;
+		gap: 41px;
 
 		@include desktop {
 			flex-direction: row;
@@ -120,15 +120,7 @@
 	}
 
 	&__menu-link {
-		color: #282a33;
-
-		@include hover {
-			color: $color-black;
-		}
-
-		@include active {
-			color: $color-black;
-		}
+		color: $color-text-primary;
 	}
 
 	&__menu-image {
