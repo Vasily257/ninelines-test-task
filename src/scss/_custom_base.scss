@@ -8,6 +8,7 @@ html {
 .site--custom {
 	display: grid;
 	grid-template-columns: 1fr;
+	grid-auto-rows: min-content;
 	margin: 0 auto;
 	max-width: 1140px;
 }
