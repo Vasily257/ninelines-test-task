@@ -19,7 +19,7 @@ header.header
 			each object, key in data.header.menu
 				li.header__menu-item
 					a.header__menu-link.js-to-anchor(href=object.url data-link=key)
-						!= object.name
+						= object.name
 		+lazyImage({
 			src: `${baseDir}images/processing.png`,
 			srcset: `${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`,
