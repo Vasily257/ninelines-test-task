@@ -72,7 +72,7 @@
 		"objectFitImages": false,
 		"objectFitVideos": false
 	},
-	"parser": "babel-eslint",
+	"parser": "@babel/eslint-parser",
 	"parserOptions": {
 		"allowImportExportEverywhere": true,
 		"ecmaVersion": 2018,
