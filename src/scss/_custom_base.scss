@@ -6,7 +6,8 @@ html {
 }
 
 .site--custom {
-	// display: grid;
-	// grid-template-columns: 1fr;
-	// align-items: center;
+	display: grid;
+	grid-template-columns: 1fr;
+	margin: 0 auto;
+	max-width: 1140px;
 }
