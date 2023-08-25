@@ -2,11 +2,18 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 20px;
+	height: fit-content;
+	background-color: $color-background;
 
 	&__logo-link {
 		display: block;
 		width: 80px;
 		height: 80px;
+
+		@include desktop {
+			width: 150px;
+			height: 150px;
+		}
 	}
 
 	&__logo-image {
@@ -38,6 +45,14 @@
 		-webkit-overflow-scrolling: touch;
 
 		@include active {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		@include desktop {
+			position: relative;
+			width: fit-content;
+			height: auto;
 			opacity: 1;
 			visibility: visible;
 		}
@@ -73,6 +88,10 @@
 				transform: translate(1px, -6px) rotate(45deg);
 			}
 		}
+
+		@include desktop {
+			display: none;
+		}
 	}
 
 	&__menu-list {
@@ -82,12 +101,22 @@
 		padding-left: 40px;
 		width: 100%;
 		gap: 40px;
+
+		@include desktop {
+			flex-direction: row;
+			padding-top: 1px;
+			padding-right: 3px;
+			gap: 32px;
+		}
 	}
 
 	&__menu-item {
 		font-weight: 700;
 		font-size: 26px;
-		line-height: normal;
+
+		@include desktop {
+			font-size: 18px;
+		}
 	}
 
 	&__menu-link {
@@ -112,5 +141,14 @@
 		&[data-loaded="true"] {
 			opacity: 1;
 		}
+
+		@include desktop {
+			display: none;
+		}
+	}
+
+	@include desktop {
+		padding: 0;
+		padding-top: 100px;
 	}
 }
