@@ -18,3 +18,30 @@ main.home
 				each social in data.home.socials
 					li.home__socials
 						+svg(social)
+
+	section.home__section.home__section--resume
+		//- Опыт работы
+		h2.home__title
+			| Опыт работы
+		ul.home__jobs
+			each job in data.home.jobs
+				li.home__job
+					span.home__job-time
+						!= job.time
+					h3.home__job-position
+						!= job.position
+					span.home__job-speciality-logo(class=`sprite-${job.specialityLogo}`)
+					img.home__job-company-logo(
+						src=`${baseDir}images/${job.companyLogo}.png`
+						srcset=`${baseDir}images/${job.companyLogo}@2x.png 2x`
+						alt="Логотип компании"
+					)
+					span.home__job-company-name
+						!= job.companyName
+					span.home__job-company-desc
+						!= job.companyDesc
+					p.home__job-duty
+						!= job.duty
+					each project in job.projects
+						p.home__job-project
+							!= project
