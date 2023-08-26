@@ -71,7 +71,7 @@
 			display: block;
 			width: 26px;
 			height: 2px;
-			background-color: $color-text-primary;
+			background-color: $color-primary;
 			transition: transform $duration-normal, opacity $duration-normal / 2;
 		}
 
@@ -120,7 +120,7 @@
 	}
 
 	&__menu-link {
-		color: $color-text-primary;
+		color: $color-primary;
 	}
 
 	&__menu-image {
