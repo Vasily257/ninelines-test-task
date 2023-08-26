@@ -45,3 +45,16 @@ main.home
 					each project in job.projects
 						p.home__job-project
 							!= project
+
+		//- Образование
+		h2.home__title
+			| Образование
+		ul.home__educations
+			each education in data.home.educations
+				li.home__education
+					span.home__education-logo(class=`sprite-${education.logo}`)
+					h3.home__education-speciality
+						!= education.speciality
+					each institution in education.institutions
+						p.home__education-institution
+							!= institution
