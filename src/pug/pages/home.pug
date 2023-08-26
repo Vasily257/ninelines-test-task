@@ -58,3 +58,15 @@ main.home
 					each institution in education.institutions
 						p.home__education-institution
 							!= institution
+
+	section.home__section.home__section--skills
+		//- Навыки
+		h2.home__title
+			| Навыки
+		ul.home__skills
+			each skill in data.home.skills
+				li.home__skill
+					h3.home__skill-group
+						!= skill.group
+					p.home__skill-values
+						!= skill.values
