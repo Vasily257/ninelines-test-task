@@ -1,2 +1,20 @@
 main.home
+	section.home__section.home__section--about
+		//- О себе
+		h1.home__title.home__title--about
+			!= data.home.about.name
+		p.home__about-bio
+			!= data.home.about.bio
 
+		//- Контакты
+		.home__contacts
+			a.home__contact(href="mailto:mail@gmail.com")
+				| mail@gmail.com
+			a.home__contact(href="tel:+79990000000")
+				| +7 (999) 000-00-00
+			span.home__contact
+				| г. Иннополис
+			ul.home__socials
+				each social in data.home.socials
+					li.home__socials
+						+svg(social)
