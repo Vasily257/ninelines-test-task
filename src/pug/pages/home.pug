@@ -46,6 +46,16 @@ main.home
 						p.home__job-project
 							!= project
 
+		//- Декоративное изображение (жонглер)
+		+lazyImage({
+			src: `${baseDir}images/juggling-guy.png`,
+			srcset: `${baseDir}images/juggling-guy.webp, ${baseDir}images/juggling-guy@2x.webp 2x, ${baseDir}images/juggling-guy@2x.png 2x`,
+			alt: 'Нарисованный парень, который жонглирует монетами',
+		})&attributes({
+			width: '500',
+			height: '500',
+		}).home__decor-image.home__decor-image--juggler
+
 		//- Образование
 		h2.home__title
 			| Образование
@@ -70,3 +80,13 @@ main.home
 						!= skill.group
 					p.home__skill-values
 						!= skill.values
+
+	//- Декоративное изображение (сердечко из пальцев)
+	+lazyImage({
+		src: `${baseDir}images/fingers-heart.png`,
+		srcset: `${baseDir}images/fingers-heart.webp,&nbsp; ${baseDir}images/fingers-heart@2x.webp 2x, ${baseDir}images/fingers-heart@2x.png 2x`,
+		alt: 'Пальцы, сложенные в форме сердца',
+	})&attributes({
+		width: '512',
+		height: '288',
+	}).home__decor-image.home__decor-image--fingers
