@@ -155,11 +155,16 @@
 	&__decor-image {
 		display: block;
 		margin: 0 auto;
+		height: auto;
 
 		&--juggler {
 			margin-top: 38px;
 			width: 200px;
-			height: 200px;
+		}
+
+		&--fingers {
+			margin-top: 70px;
+			width: 255px;
 		}
 	}
 
