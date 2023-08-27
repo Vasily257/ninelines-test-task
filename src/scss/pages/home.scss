@@ -122,7 +122,7 @@
 	&__job-duty-box {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
+		gap: 3px;
 	}
 
 	&__job-duty {
@@ -135,6 +135,13 @@
 		&--lineheight-one-two {
 			line-height: 1.2;
 		}
+	}
+
+	&__job-project {
+		border-bottom: 1px solid $color-link;
+		width: fit-content;
+		box-sizing: border-box;
+		color: $color-link;
 	}
 
 	&__decor-image {
