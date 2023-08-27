@@ -5,12 +5,37 @@
 	line-height: 1.2;
 
 	&__section {
+		&--about {
+			position: relative;
+
+			&::after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				bottom: -65px;
+				transform: translate(-50%, 0);
+
+				@include sprite("wave-mobile-up");
+			}
+		}
+
 		&--resume {
 			margin-top: 40px;
 		}
 
 		&--skills {
+			position: relative;
 			margin-top: 40px;
+
+			&::before {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: -50px;
+				transform: translate(-50%, 0);
+
+				@include sprite("wave-mobile-bottom");
+			}
 		}
 	}
 
