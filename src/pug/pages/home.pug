@@ -1,10 +1,8 @@
 main.home
 	section.home__section.home__section--about
 		//-  Блок «О себе»
-		h1.home__title.home__title--about
-			!= data.home.about.name
-		p.home__about-bio
-			!= data.home.about.bio
+		h1.home__title.home__title--about!= data.home.about.name
+		p.home__about-bio!= data.home.about.bio
 
 		//- Блок «Контакты»
 		.home__contacts
@@ -27,11 +25,9 @@ main.home
 			each job, key in data.home.jobs
 				//- Разметка элемента job
 				li.home__job
-					span.home__job-time
-						!= job.time
+					span.home__job-time!= job.time
 					.home__job-position-box
-						h3.home__job-position
-							!= job.position
+						h3.home__job-position!= job.position
 						span(class=`sprite-${job.specialityLogo}`)
 
 					.home__job-company-box(
@@ -49,10 +45,8 @@ main.home
 								height="30"
 							)
 						if job.companyName
-							span.home__job-company-name
-								!= job.companyName
-						span.home__job-company-desc
-							!= job.companyDesc
+							span.home__job-company-name!= job.companyName
+						span.home__job-company-desc!= job.companyDesc
 
 					.home__job-duty-box
 						p.home__job-duty(
@@ -60,11 +54,9 @@ main.home
 								'home__job-duty--lineheight-one-two': key === 0,
 								'home__job-duty--lineheight-one-four': key === 1
 							}
-						)
-							!= job.duty
+						)!= job.duty
 						each project in job.projects
-							p.home__job-project
-								!= project
+							p.home__job-project!= project
 
 		//- Декоративное изображение (жонглер)
 		+lazyImage({
@@ -83,11 +75,9 @@ main.home
 			each education in data.home.educations
 				li.home__education
 					span.home__education-logo(class=`sprite-${education.logo}`)
-					h3.home__education-speciality
-						!= education.speciality
+					h3.home__education-speciality!= education.speciality
 					each institution in education.institutions
-						p.home__education-institution
-							!= institution
+						p.home__education-institution!= institution
 
 	section.home__section.home__section--skills
 		//-  Блок «Навыки»
@@ -96,10 +86,8 @@ main.home
 		ul.home__skills
 			each skill in data.home.skills
 				li.home__skill
-					h3.home__skill-group
-						!= skill.group
-					p.home__skill-values
-						!= skill.values
+					h3.home__skill-group!= skill.group
+					p.home__skill-values!= skill.values
 
 	//- Декоративное изображение (сердечко из пальцев)
 	+lazyImage({
