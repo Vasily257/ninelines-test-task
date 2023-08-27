@@ -136,4 +136,15 @@
 			line-height: 1.2;
 		}
 	}
+
+	&__decor-image {
+		display: block;
+		margin: 0 auto;
+
+		&--juggler {
+			margin-top: 38px;
+			width: 200px;
+			height: 200px;
+		}
+	}
 }
