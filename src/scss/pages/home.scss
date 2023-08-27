@@ -8,6 +8,10 @@
 		&--resume {
 			margin-top: 40px;
 		}
+
+		&--skills {
+			margin-top: 40px;
+		}
 	}
 
 	&__title {
@@ -19,6 +23,10 @@
 		&--about {
 			font-size: 28px;
 			line-height: 1.4;
+		}
+
+		&--education {
+			margin-top: 40px;
 		}
 	}
 
@@ -153,5 +161,62 @@
 			width: 200px;
 			height: 200px;
 		}
+	}
+
+	&__educations {
+		display: grid;
+		column-gap: 20px;
+		row-gap: 20px;
+		grid-template-columns: repeat(2, 1fr);
+		margin-top: 20px;
+	}
+
+	&__education {
+		display: flex;
+		row-gap: 8px;
+		flex-basis: 50%;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	&__education-logo {
+		min-height: 36px;
+	}
+
+	&__education-speciality {
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1.37;
+	}
+
+	&__education-institution {
+		max-width: 90%;
+		line-height: 1.39;
+	}
+
+	&__skills {
+		display: flex;
+		row-gap: 20px;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		margin-top: 19px;
+	}
+
+	&__skill {
+		display: flex;
+		row-gap: 6px;
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	&__skill-group {
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1.43;
 	}
 }
