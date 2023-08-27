@@ -1,12 +1,12 @@
 main.home
 	section.home__section.home__section--about
-		//- О себе
+		//-  Блок «О себе»
 		h1.home__title.home__title--about
 			!= data.home.about.name
 		p.home__about-bio
 			!= data.home.about.bio
 
-		//- Контакты
+		//- Блок «Контакты»
 		.home__contacts
 			a.home__contact(href="mailto:mail@gmail.com")
 				| mail@gmail.com
@@ -16,8 +16,8 @@ main.home
 				| г. Иннополис
 			ul.home__socials
 				each social in data.home.socials
-					li.home__socials
-						+svg(social)
+					li
+						+svg(social).home__social-icon
 
 	section.home__section.home__section--resume
 		//- Опыт работы
