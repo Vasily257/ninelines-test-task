@@ -1,13 +1,12 @@
 header.header
 	a.header__logo-link(href=data.header.links.logo)
-		+lazyImage({
-			src: `${baseDir}images/logo.png`,
-			srcset: `${baseDir}images/logo.webp, ${baseDir}images/logo@2x.webp 2x, ${baseDir}images/logo@2x.png 2x`,
-			alt: 'Логотип сайта',
-		})&attributes({
-			width: '80',
-			height: '80',
-		}).header__logo-image
+		img(
+			src=`${baseDir}images/logo.png`
+			srcset=`${baseDir}images/logo.webp, ${baseDir}images/logo@2x.webp 2x, ${baseDir}images/logo@2x.png 2x`
+			alt="Логотип сайта"
+			width="80"
+			height="80"
+		).header__logo-image
 
 	button.header__menu-button.btn.js-burger(type="button")
 		span.header__menu-button-line.header__menu-button-line--first
@@ -19,11 +18,11 @@ header.header
 			each object, key in data.header.menu
 				li.header__menu-item
 					a.header__menu-link.js-to-anchor(href=object.url data-link=key)!= object.name
-		+lazyImage({
-			src: `${baseDir}images/processing.png`,
-			srcset: `${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`,
-			alt: 'Песочные часы',
-		})&attributes({
-			width: '230',
-			height: '200',
-		}).header__menu-image
+		img(
+			src=`${baseDir}images/processing.png`
+			srcset=`${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`
+			alt="Песочные часы"
+			width="230"
+			height="200"
+		).header__menu-image
+
