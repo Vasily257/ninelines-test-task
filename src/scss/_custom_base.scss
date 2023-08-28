@@ -5,6 +5,11 @@ html {
 	color: $color-primary;
 }
 
+img {
+	display: block;
+	height: auto;
+}
+
 .site--custom {
 	margin: 0 auto;
 	max-width: 1140px;

@@ -17,15 +17,7 @@
 	}
 
 	&__logo-image {
-		display: block;
 		width: 100%;
-		height: auto;
-		opacity: 0;
-		transition: opacity $duration-normal;
-
-		&[data-loaded="true"] {
-			opacity: 1;
-		}
 	}
 
 	&__menu {
@@ -124,15 +116,8 @@
 	}
 
 	&__menu-image {
-		display: block;
 		margin-top: 22px;
 		margin-left: 64px;
-		opacity: 0;
-		transition: opacity $duration-normal;
-
-		&[data-loaded="true"] {
-			opacity: 1;
-		}
 
 		@include desktop {
 			display: none;

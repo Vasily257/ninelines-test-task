@@ -24,13 +24,13 @@
 			}
 
 			&::after {
-				content: "";
+				content: '';
 				position: absolute;
 				left: 50%;
 				bottom: -65px;
 				transform: translate(-50%, 0);
 
-				@include sprite("wave-mobile-up");
+				@include sprite('wave-mobile-up');
 			}
 		}
 
@@ -53,13 +53,13 @@
 			}
 
 			&::before {
-				content: "";
+				content: '';
 				position: absolute;
 				left: 50%;
 				top: -50px;
 				transform: translate(-50%, 0);
 
-				@include sprite("wave-mobile-bottom");
+				@include sprite('wave-mobile-bottom');
 			}
 		}
 	}
@@ -260,9 +260,7 @@
 	}
 
 	&__decor-image {
-		display: block;
 		margin: 0 auto;
-		height: auto;
 
 		&--juggler {
 			margin-top: 45px;
