@@ -1,8 +1,8 @@
 header.header
 	a.header__logo-link(href=data.header.links.logo)
 		img(
-			src=`${baseDir}images/logo.png`
-			srcset=`${baseDir}images/logo.webp, ${baseDir}images/logo@2x.webp 2x, ${baseDir}images/logo@2x.png 2x`
+			data-src=`${baseDir}images/logo.png`
+			data-srcset=`${baseDir}images/logo.webp, ${baseDir}images/logo@2x.webp 2x, ${baseDir}images/logo@2x.png 2x`
 			alt="Логотип сайта"
 			width="80"
 			height="80"
@@ -19,8 +19,8 @@ header.header
 				li.header__menu-item
 					a.header__menu-link.js-to-anchor(href=object.url data-link=key)!= object.name
 		img(
-			src=`${baseDir}images/processing.png`
-			srcset=`${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`
+			data-src=`${baseDir}images/processing.png`
+			data-srcset=`${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`
 			alt="Песочные часы"
 			width="230"
 			height="200"
