@@ -9,12 +9,12 @@ let allImagesLoadedBytes;
  */
 function addPreloadOfPreloader() {
 	const dpr = window.devicePixelRatio;
-	const initialSrc =
+	const preloaderSrc =
 		'./images/guy-on-rocket.webp, ./images/guy-on-rocket@2x.webp 2x, ./images/guy-on-rocket.png, ./images/guy-on-rocket@2x.png 2x,';
 	const preloadLink = document.createElement('link');
 
 	preloadLink.rel = 'preload';
-	preloadLink.href = getBestSource(initialSrc, dpr);
+	preloadLink.href = getBestSource(preloaderSrc, dpr);
 	preloadLink.as = 'image';
 
 	document.head.appendChild(preloadLink);
@@ -76,10 +76,10 @@ function addMonitoringImages() {
 		let image = images[i];
 
 		// Строка с источником (источниками) изображений
-		const intialSrc = image.getAttribute('data-srcset') || image.getAttribute('data-src');
+		const imageSrc = image.getAttribute('data-srcset') || image.getAttribute('data-src');
 
 		/** Ссылка на изображение */
-		const url = getBestSource(intialSrc, dpr);
+		const url = getBestSource(imageSrc, dpr);
 
 		/** Инициализация запроса */
 		const xhr = new XMLHttpRequest();
