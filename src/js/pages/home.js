@@ -58,8 +58,11 @@ function handleDomContentLoaded() {
 	for (let i = 0; i < images.length; i++) {
 		let image = images[i];
 
+		// Строка с источником (источниками) изображений
+		const intialSrc = image.getAttribute('data-srcset') || image.getAttribute('data-src');
+
 		/** Ссылка на изображение */
-		const url = getBestSource(image, dpr);
+		const url = getBestSource(intialSrc, dpr);
 
 		/** Инициализация запроса */
 		const xhr = new XMLHttpRequest();

@@ -1,17 +1,14 @@
 /**
  * Получить подходящий источник изображения
  * (имитация логики `srcset` у тега `img`)
- * @param {HTMLImageElement} image Обязательно, элемент изображения
- * @param {number} dpr Обязательно, соотношение пикселей устройства
+ * @param {string} src один или несколько источников (URL) изображений (обязательное)
+ * @param {number} dpr соотношение пикселей устройства (обязательное)
  */
-export const getBestSource = (image, dpr) => {
+export const getBestSource = (src, dpr) => {
 	let bestSrc = '';
 
-	// Использовать альтернативные URL изображений, если они есть
-	const intialSrc = image.getAttribute('data-srcset') || image.getAttribute('data-src');
-
 	// Распарсить строку с URL в массив
-	const intialSrcList = intialSrc.split(', ');
+	const intialSrcList = src.split(', ');
 
 	// Перебрать URL и выбрать подходящий на основе формата и dpr
 	for (let i = 0; i < intialSrcList.length; i++) {
@@ -26,6 +23,7 @@ export const getBestSource = (image, dpr) => {
 			!isWebp && dpr >= 1.5 && isDoubleSize ||
 			!isWebp && dpr < 1.5 && !isDoubleSize
 		) {
+			// Убрать множитель в конце строки
 			bestSrc = currentintialSrc.replace(/\s(\d+)x$/, '');
 			break;
 		}
