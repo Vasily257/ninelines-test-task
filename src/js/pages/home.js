@@ -48,42 +48,48 @@ function addImageLoadListener({xhr, image, url}) {
 }
 
 /**
+ * Добавить слушатель события загрузки DOM
+ * @private
+ */
+function handleDomContentLoaded() {
+	const images = document.querySelectorAll('img[data-src]');
+	const dpr = window.devicePixelRatio;
+
+	for (let i = 0; i < images.length; i++) {
+		let image = images[i];
+
+		/** Ссылка на изображение */
+		const url = getBestSource(image, dpr);
+
+		/** Инициализация запроса */
+		const xhr = new XMLHttpRequest();
+
+		// Выполнить запрос
+		xhr.open('GET', url, true);
+
+		// Перевести изображение в формат BLOB
+		xhr.responseType = 'blob';
+
+		// Добавить слушатель прогресса
+		xhr.addEventListener('progress', handleImageProgress);
+
+		// Добавить слушатель загрузки
+		addImageLoadListener({
+			xhr,
+			image,
+			url,
+		});
+
+		xhr.send();
+	}
+}
+
+/**
  * Инициализировать страницу
  * @public
  */
 function init() {
-	document.addEventListener('DOMContentLoaded', async () => {
-		const images = document.querySelectorAll('img[data-src]');
-		const dpr = window.devicePixelRatio;
-
-		for (let i = 0; i < images.length; i++) {
-			let image = images[i];
-
-			/** Ссылка на изображение */
-			const url = getBestSource(image, dpr);
-
-			/** Инициализация запроса */
-			const xhr = new XMLHttpRequest();
-
-			// Выполнить запрос
-			xhr.open('GET', url, true);
-
-			// Перевести изображение в формат BLOB
-			xhr.responseType = 'blob';
-
-			// Добавить слушатель прогресса
-			xhr.addEventListener('progress', handleImageProgress);
-
-			// Добавить слушатель загрузки
-			addImageLoadListener({
-				xhr,
-				image,
-				url,
-			});
-
-			xhr.send();
-		}
-	});
+	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
 }
 
 export default {
