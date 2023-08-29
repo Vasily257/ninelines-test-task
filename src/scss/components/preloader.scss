@@ -1,0 +1,16 @@
+.preloader {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	background-color: $color-white;
+
+	&__image {
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: translate(-110vw, 110vh);
+	}
+}
