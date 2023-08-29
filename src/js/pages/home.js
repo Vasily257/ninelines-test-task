@@ -48,10 +48,10 @@ function addImageLoadListener({xhr, image, url}) {
 }
 
 /**
- * Добавить слушатель события загрузки DOM
+ * Добавить слежение за загрузкой изображений
  * @private
  */
-function handleDomContentLoaded() {
+function addMonitoringImages() {
 	const images = document.querySelectorAll('img[data-src]');
 	const dpr = window.devicePixelRatio;
 
@@ -85,6 +85,14 @@ function handleDomContentLoaded() {
 
 		xhr.send();
 	}
+}
+
+/**
+ * Добавить слушатель события загрузки DOM
+ * @private
+ */
+function handleDomContentLoaded() {
+	addMonitoringImages();
 }
 
 /**
