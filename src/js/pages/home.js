@@ -4,6 +4,23 @@ let allImagesTotalBytes;
 let allImagesLoadedBytes;
 
 /**
+ * Добавить предварительную загрузку прелоадера
+ * @private
+ */
+function addPreloadOfPreloader() {
+	const dpr = window.devicePixelRatio;
+	const intialSrc =
+		'./images/guy-on-rocket.webp, ./images/guy-on-rocket@2x.webp 2x, ./images/guy-on-rocket.png, ./images/guy-on-rocket@2x.png 2x,';
+	const preloadLink = document.createElement('link');
+
+	preloadLink.rel = 'preload';
+	preloadLink.href = getBestSource(intialSrc, dpr); // Замените на путь к вашему изображению
+	preloadLink.as = 'image';
+
+	document.head.appendChild(preloadLink);
+}
+
+/**
  * Обработать прогресс загрузки изображения
  * @private
  * @param {ProgressEvent} event событие прогресса (обязательное)
@@ -92,6 +109,7 @@ function addMonitoringImages() {
  * @private
  */
 function handleDomContentLoaded() {
+	addPreloadOfPreloader();
 	addMonitoringImages();
 }
 
