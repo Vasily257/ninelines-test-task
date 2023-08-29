@@ -39,13 +39,13 @@ function init() {
 			/** Инициализация запроса */
 			const xhr = new XMLHttpRequest();
 
-			/** Выполнить запрос */
+			// Выполнить запрос
 			xhr.open('GET', url, true);
 
-			/** Перевести изображение в формат BLOB */
+			// Перевести изображение в формат BLOB
 			xhr.responseType = 'blob';
 
-			/** Выполнить код во время загрузки изображения */
+			// Добавить слушатель прогресса
 			xhr.addEventListener('progress', handleImageProgress);
 
 			const handleImageUpload = () => {
