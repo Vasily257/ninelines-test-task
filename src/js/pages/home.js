@@ -6,7 +6,7 @@ let allImagesLoadedBytes;
 /**
  * Обработать прогресс загрузки изображения
  * @private
- * @param {ProgressEvent} event событие прогресса
+ * @param {ProgressEvent} event событие прогресса (обязательное)
  */
 function handleImageProgress(event) {
 	let isNotTotalSent = true;
@@ -24,9 +24,9 @@ function handleImageProgress(event) {
 /**
  * Добавить слушатель события загрузки изображения
  * @private
- * @param {XMLHttpRequest} xhr запрос на загрузку
- * @param {HTMLImageElement} image элемент изображения
- * @param {string} url ссылка на источник изображения
+ * @param {XMLHttpRequest} xhr запрос на загрузку (обязательное)
+ * @param {HTMLImageElement} image элемент изображения (обязательное)
+ * @param {string} url ссылка на источник изображения (обязательное)
  */
 function addImageLoadListener({xhr, image, url}) {
 	// Создать изображение из BLOB-данных
@@ -64,16 +64,16 @@ function handleDomContentLoaded() {
 		/** Инициализация запроса */
 		const xhr = new XMLHttpRequest();
 
-		// Выполнить запрос
+		// Выполнить запрос, чтобы получить изображение
 		xhr.open('GET', url, true);
 
 		// Перевести изображение в формат BLOB
 		xhr.responseType = 'blob';
 
-		// Добавить слушатель прогресса
+		// Добавить слушатель (прогресс загрузки изображения)
 		xhr.addEventListener('progress', handleImageProgress);
 
-		// Добавить слушатель загрузки
+		// Добавить слушатель (полная загрузка изображения)
 		addImageLoadListener({
 			xhr,
 			image,
