@@ -22,6 +22,32 @@ function handleImageProgress(event) {
 }
 
 /**
+ * Добавить слушатель события загрузки изображения
+ * @private
+ * @param {XMLHttpRequest} xhr запрос на загрузку
+ * @param {HTMLImageElement} image элемент изображения
+ * @param {string} url ссылка на источник изображения
+ */
+function addImageLoadListener({xhr, image, url}) {
+	// Создать изображение из BLOB-данных
+	const handleImageUpload = () => {
+		if (xhr.status === 200) {
+			const blob = xhr.response;
+			const imgObjectURL = URL.createObjectURL(blob);
+			image.src = imgObjectURL;
+		} else {
+			throw new Error(`Ошибка загрузки изображения ${url}. Статус: ${xhr.status}`);
+		}
+	};
+
+	// Добавить обработчик
+	xhr.addEventListener('load', handleImageUpload);
+
+	// Вернуть обработчик, чтобы его можно было удалить
+	return handleImageUpload;
+}
+
+/**
  * Инициализировать страницу
  * @public
  */
@@ -48,18 +74,12 @@ function init() {
 			// Добавить слушатель прогресса
 			xhr.addEventListener('progress', handleImageProgress);
 
-			const handleImageUpload = () => {
-				if (xhr.status === 200) {
-					const blob = xhr.response;
-					const imgObjectURL = URL.createObjectURL(blob);
-					image.src = imgObjectURL;
-				} else {
-					throw new Error(`Ошибка загрузки изображения ${url}. Статус: ${xhr.status}`);
-				}
-			};
-
-			/** Выполнить код после загрузки изображения */
-			xhr.addEventListener('load', handleImageUpload);
+			// Добавить слушатель загрузки
+			addImageLoadListener({
+				xhr,
+				image,
+				url,
+			});
 
 			xhr.send();
 		}
