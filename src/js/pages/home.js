@@ -5,7 +5,7 @@ let allImagesLoadedBytes;
 
 /**
  * Обработать прогресс загрузки изображения
- * @public
+ * @private
  * @param {ProgressEvent} event событие прогресса
  */
 function handleImageProgress(event) {
