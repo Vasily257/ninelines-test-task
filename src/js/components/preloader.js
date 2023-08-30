@@ -28,6 +28,42 @@ const init = () => {
 	};
 
 	/**
+	 * Получить размер одного изображения
+	 * @private
+	 * @param {string} url путь к изображению (обязательное)
+	 */
+	const getSizeOfOneImage = (url) => {
+		return new Promise((resolve, reject) => {
+			/** Инициализация запроса */
+			const xhr = new XMLHttpRequest();
+
+			// Выполнить запрос, чтобы получить метаданные изображения
+			xhr.open('HEAD', url, true);
+
+			xhr.onload = () => {
+				/** Размер изображения в байтах */
+				const contentLength = xhr.getResponseHeader('Content-Length');
+
+				if (contentLength) {
+					// Вернуть ссылку на изображение и его размер в случае успеха
+					resolve({
+						url,
+						size: parseInt(contentLength, 10),
+					});
+				} else {
+					reject(new Error(`Не удалось получить размер для изображения: ${url}`));
+				}
+			};
+
+			xhr.onerror = () => {
+				reject(new Error(`Ошибка при запросе метаданных для изображения: ${url}`));
+			};
+
+			xhr.send();
+		});
+	};
+
+	/**
 	 * Обработать прогресс загрузки изображения
 	 * @private
 	 * @param {ProgressEvent} event событие прогресса (обязательное)
@@ -120,6 +156,7 @@ const init = () => {
 	 */
 	const handleDomContentLoaded = () => {
 		addPreloadOfPreloader();
+		getSizeOfAllImages();
 		addMonitoringImages();
 	};
 
