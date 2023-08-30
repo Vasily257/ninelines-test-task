@@ -115,7 +115,7 @@ const init = () => {
 	 */
 	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
-		let imageUrls = [];
+		let sizePromises = [];
 
 		for (let i = 0; i < images.length; i++) {
 			const image = images[i];
@@ -126,10 +126,10 @@ const init = () => {
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr);
 
-			imageUrls.push(url);
+			sizePromises.push(getSizeOfOneImage(url));
 		}
 
-		Promise.all(imageUrls.map(getSizeOfOneImage))
+		Promise.all(sizePromises)
 			.then((metadataArray) => {
 				let totalSize = 0;
 				metadataArray.forEach((metadata) => {
