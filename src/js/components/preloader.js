@@ -9,6 +9,9 @@ const init = () => {
 	let allImagesTotalBytes = 0;
 	/** Количество загруженных байт изображений */
 	let allImagesLoadedBytes = 0;
+
+	const indexImagesLoadedBytes = {};
+
 	/** Соотношение виртуальных и физических пикселей */
 	const dpr = window.devicePixelRatio;
 
@@ -33,35 +36,29 @@ const init = () => {
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 */
-	const getSizeOfOneImage = (url) => {
-		return new Promise((resolve, reject) => {
-			/** Инициализация запроса */
-			const xhr = new XMLHttpRequest();
+	const initGettingSizeXhr = (url) => {
+		/** Инициализация запроса */
+		const gettingSizeXhr = new XMLHttpRequest();
 
-			// Выполнить запрос, чтобы получить метаданные изображения
-			xhr.open('HEAD', url, true);
+		// Выполнить запрос, чтобы получить метаданные изображения
+		gettingSizeXhr.open('HEAD', url, true);
 
-			xhr.onload = () => {
-				/** Размер изображения в байтах */
-				const contentLength = xhr.getResponseHeader('Content-Length');
+		gettingSizeXhr.onload = () => {
+			/** Размер изображения в байтах */
+			const contentLength = gettingSizeXhr.getResponseHeader('Content-Length');
 
-				if (contentLength) {
-					// Вернуть ссылку на изображение и его размер, если запрос успешный
-					resolve({
-						url,
-						size: parseInt(contentLength, 10),
-					});
-				} else {
-					reject(new Error(`Не удалось получить размер для изображения: ${url}`));
-				}
-			};
+			if (contentLength) {
+				allImagesTotalBytes += parseInt(contentLength, 10);
+			} else {
+				throw new Error(`Не удалось получить размер для изображения: ${url}`);
+			}
+		};
 
-			xhr.onerror = () => {
-				reject(new Error(`Ошибка при запросе метаданных для изображения: ${url}`));
-			};
+		gettingSizeXhr.onerror = () => {
+			throw new Error(`Ошибка при запросе метаданных для изображения: ${url}`);
+		};
 
-			xhr.send();
-		});
+		return gettingSizeXhr;
 	};
 
 	/**
@@ -70,45 +67,45 @@ const init = () => {
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
 	 */
-	const loadOneImage = (url, image) => {
-		return new Promise((resolve, reject) => {
-			/** Инициализация запроса */
-			const xhr = new XMLHttpRequest();
+	const initUploadingXhr = (url, image) => {
+		/** Инициализация запроса */
+		const uploadingXhr = new XMLHttpRequest();
 
-			// Установить типа ответа на BLOB
-			xhr.responseType = 'blob';
+		// Установить типа ответа на BLOB
+		uploadingXhr.responseType = 'blob';
 
-			/** Количество байт, загруженное в данный момент */
-			let imageLoadedBytes = 0;
+		// Выполнить запрос, чтобы загрузить изображение
+		uploadingXhr.open('GET', url, true);
 
-			// Выполнить запрос, чтобы загрузить изображение
-			xhr.open('GET', url, true);
+		// Следить за прогрессом загрузки и обновлять количество загруженных байт
+		uploadingXhr.onprogress = (event) => {
+			if (!indexImagesLoadedBytes?.url) {
+				indexImagesLoadedBytes[url] = 0;
+			}
 
-			// Следить за прогрессом загрузки и обновлять количество загруженных байт
-			xhr.onprogress = (event) => {
-				if (event.lengthComputable) {
-					imageLoadedBytes = event.loaded;
-					console.log(`Загружено байт ${url}: ${imageLoadedBytes}`);
-				}
-			};
+			if (event.lengthComputable) {
+				allImagesLoadedBytes -= indexImagesLoadedBytes[url];
 
-			xhr.onload = () => {
-				if (xhr.status === 200) {
-					const blob = xhr.response;
-					const imgObjectURL = URL.createObjectURL(blob);
-					image.src = imgObjectURL;
-					console.log('Изображение загружено');
-				} else {
-					reject(new Error(`Ошибка загрузки изображения: ${url}`));
-				}
-			};
+				indexImagesLoadedBytes[url] = event.loaded;
+				allImagesLoadedBytes += event.loaded;
+			}
+		};
 
-			xhr.onerror = () => {
-				reject(new Error(`Ошибка загрузки изображения: ${url}`));
-			};
+		uploadingXhr.onload = () => {
+			if (uploadingXhr.status === 200) {
+				const blob = uploadingXhr.response;
+				const imgObjectURL = URL.createObjectURL(blob);
+				image.src = imgObjectURL;
+			} else {
+				throw new Error(`Ошибка загрузки изображения: ${url}`);
+			}
+		};
 
-			xhr.send();
-		});
+		uploadingXhr.onerror = () => {
+			throw new Error(`Ошибка загрузки изображения: ${url}`);
+		};
+
+		return uploadingXhr;
 	};
 
 	/**
@@ -117,8 +114,9 @@ const init = () => {
 	 */
 	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
-		let sizePromises = [];
-		let loadImagePromises = [];
+
+		const gettingSizeXhrList = [];
+		const uploadingXhrList = [];
 
 		for (let i = 0; i < images.length; i++) {
 			const image = images[i];
@@ -129,30 +127,18 @@ const init = () => {
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr);
 
-			sizePromises.push(getSizeOfOneImage(url));
-			loadImagePromises.push(loadOneImage(url, image));
+			gettingSizeXhrList.push(initGettingSizeXhr(url));
+			uploadingXhrList.push(initUploadingXhr(url, image));
 		}
 
-		Promise.all(sizePromises)
-			.then((metadataArray) => {
-				let totalSize = 0;
-				metadataArray.forEach((metadata) => {
-					totalSize += metadata.size;
-				});
+		for (let i = 0; i < gettingSizeXhrList.length; i++) {
+			const gettingSizeXhr = gettingSizeXhrList[i];
+			gettingSizeXhr.send();
 
-				console.log(`Общий размер изображений: ${totalSize} байт`);
-
-				Promise.all(loadImagePromises)
-					.then(() => {
-						console.log('Все изображения загружены');
-					})
-					.catch((error) => {
-						console.error('Ошибка при загрузке изображений:', error);
-					});
-			})
-			.catch((error) => {
-				console.error('Ошибка при получении метаданных изображений:', error);
-			});
+			if (i === gettingSizeXhrList.length - 1) {
+				uploadingXhrList.forEach((xhr) => xhr.send());
+			}
+		}
 	};
 
 	/**
