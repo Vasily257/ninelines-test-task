@@ -5,7 +5,9 @@ import {getBestSource} from '../modules/srcSet';
  * @public
  */
 const init = () => {
+	/** Количество всех байт изображений */
 	let allImagesTotalBytes = 0;
+	/** Количество загруженных байт изображений */
 	let allImagesLoadedBytes = 0;
 
 	/**
