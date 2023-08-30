@@ -46,7 +46,7 @@ const init = () => {
 				const contentLength = xhr.getResponseHeader('Content-Length');
 
 				if (contentLength) {
-					// Вернуть ссылку на изображение и его размер в случае успеха
+					// Вернуть ссылку на изображение и его размер, если запрос успешный
 					resolve({
 						url,
 						size: parseInt(contentLength, 10),
@@ -74,13 +74,17 @@ const init = () => {
 		return new Promise((resolve, reject) => {
 			/** Инициализация запроса */
 			const xhr = new XMLHttpRequest();
+
+			// Установить типа ответа на BLOB
 			xhr.responseType = 'blob';
 
+			/** Количество байт, загруженное в данный момент */
 			let imageLoadedBytes = 0;
 
-			// Выполнить запрос, чтобы получить метаданные изображения
+			// Выполнить запрос, чтобы загрузить изображение
 			xhr.open('GET', url, true);
 
+			// Следить за прогрессом загрузки и обновлять количество загруженных байт
 			xhr.onprogress = (event) => {
 				if (event.lengthComputable) {
 					imageLoadedBytes = event.loaded;
