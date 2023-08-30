@@ -65,15 +65,16 @@ const init = () => {
 	};
 
 	/**
-	 * Получить размер одного изображения
+	 * Загрузить одно изображение и отследить прогресс загрузки
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
 	 */
-	const loadOneImage = (url, image) => {
+	const loadOneImage = (url) => {
 		return new Promise((resolve, reject) => {
 			/** Инициализация запроса */
 			const xhr = new XMLHttpRequest();
+			xhr.responseType = 'blob';
 
 			let imageLoadedBytes = 0;
 
@@ -89,9 +90,8 @@ const init = () => {
 
 			xhr.onload = () => {
 				if (xhr.status === 200) {
-					const blob = xhr.response;
-					const imgObjectURL = URL.createObjectURL(blob);
-					image.src = imgObjectURL;
+					resolve(xhr.response);
+					console.log('Изображение загружено');
 				} else {
 					reject(new Error(`Ошибка загрузки изображения: ${url}`));
 				}
@@ -111,9 +111,7 @@ const init = () => {
 	 */
 	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
-
-		let gettingSizePromises = [];
-		let uploadPromises = [];
+		let imageUrls = [];
 
 		for (let i = 0; i < images.length; i++) {
 			let image = images[i];
@@ -124,15 +122,36 @@ const init = () => {
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr);
 
-			gettingSizePromises.push(getSizeOfOneImage(url));
-			uploadPromises.push(loadOneImage(url, image));
+			imageUrls.push(url);
 		}
 
-		const imageInfoList = await Promise.all(gettingSizePromises);
+		Promise.all(imageUrls.map(getSizeOfOneImage))
+			.then((metadataArray) => {
+				let totalSize = 0;
+				metadataArray.forEach((metadata) => {
+					totalSize += metadata.size;
+				});
 
-		allImagesTotalBytes = imageInfoList.reduce((acc, imageInfo) => acc + imageInfo.size, 0);
+				console.log(`Общий размер изображений: ${totalSize} байт`);
 
-		await Promise.all(uploadPromises);
+				const loadImagePromises = metadataArray.map((metadata) =>
+					loadOneImage(metadata.url),
+				);
+
+				Promise.all(loadImagePromises)
+					.then((response) => {
+						const blob = response;
+						const imgObjectURL = URL.createObjectURL(blob);
+						image.src = imgObjectURL;
+						console.log('Все изображения загружены');
+					})
+					.catch((error) => {
+						console.error('Ошибка при загрузке изображений:', error);
+					});
+			})
+			.catch((error) => {
+				console.error('Ошибка при получении метаданных изображений:', error);
+			});
 	};
 
 	/**
