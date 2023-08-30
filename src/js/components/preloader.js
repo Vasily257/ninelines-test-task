@@ -116,6 +116,7 @@ const init = () => {
 	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
 		let sizePromises = [];
+		let loadImagePromises = [];
 
 		for (let i = 0; i < images.length; i++) {
 			const image = images[i];
@@ -127,6 +128,7 @@ const init = () => {
 			const url = getBestSource(imageSrc, dpr);
 
 			sizePromises.push(getSizeOfOneImage(url));
+			loadImagePromises.push(loadOneImage(url));
 		}
 
 		Promise.all(sizePromises)
@@ -137,10 +139,6 @@ const init = () => {
 				});
 
 				console.log(`Общий размер изображений: ${totalSize} байт`);
-
-				const loadImagePromises = metadataArray.map((metadata) =>
-					loadOneImage(metadata.url),
-				);
 
 				Promise.all(loadImagePromises)
 					.then((response) => {
