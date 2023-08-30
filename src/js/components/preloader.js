@@ -65,58 +65,55 @@ const init = () => {
 	};
 
 	/**
-	 * Обработать прогресс загрузки изображения
+	 * Получить размер одного изображения
 	 * @private
-	 * @param {ProgressEvent} event событие прогресса (обязательное)
-	 */
-	const handleImageProgress = (event) => {
-		let isNotTotalSent = true;
-
-		if (event.lengthComputable) {
-			if (isNotTotalSent) {
-				allImagesTotalBytes = event.total;
-				isNotTotalSent = false;
-			}
-
-			allImagesLoadedBytes += event.loaded;
-		}
-
-		console.log('allImagesTotalBytes', allImagesTotalBytes);
-		console.log('allImagesLoadedBytes', allImagesLoadedBytes);
-	};
-
-	/**
-	 * Добавить слушатель события загрузки изображения
-	 * @private
-	 * @param {XMLHttpRequest} xhr запрос на загрузку (обязательное)
+	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
-	 * @param {string} url ссылка на источник изображения (обязательное)
 	 */
-	const addImageLoadListener = ({xhr, image, url}) => {
-		// Создать изображение из BLOB-данных
-		const handleImageUpload = () => {
-			if (xhr.status === 200) {
-				const blob = xhr.response;
-				const imgObjectURL = URL.createObjectURL(blob);
-				image.src = imgObjectURL;
-			} else {
-				throw new Error(`Ошибка загрузки изображения ${url}. Статус: ${xhr.status}`);
-			}
-		};
+	const loadOneImage = (url, image) => {
+		return new Promise((resolve, reject) => {
+			/** Инициализация запроса */
+			const xhr = new XMLHttpRequest();
 
-		// Добавить обработчик
-		xhr.addEventListener('load', handleImageUpload);
+			let imageLoadedBytes = 0;
 
-		// Вернуть обработчик, чтобы его можно было удалить
-		return handleImageUpload;
+			// Выполнить запрос, чтобы получить метаданные изображения
+			xhr.open('GET', url, true);
+
+			xhr.onprogress = (event) => {
+				if (event.lengthComputable) {
+					imageLoadedBytes = event.loaded;
+					console.log(`Загружено байт ${url}: ${imageLoadedBytes}`);
+				}
+			};
+
+			xhr.onload = () => {
+				if (xhr.status === 200) {
+					const blob = xhr.response;
+					const imgObjectURL = URL.createObjectURL(blob);
+					image.src = imgObjectURL;
+				} else {
+					reject(new Error(`Ошибка загрузки изображения: ${url}`));
+				}
+			};
+
+			xhr.onerror = () => {
+				reject(new Error(`Ошибка загрузки изображения: ${url}`));
+			};
+
+			xhr.send();
+		});
 	};
 
 	/**
 	 * Добавить слежение за загрузкой изображений
 	 * @private
 	 */
-	const addMonitoringImages = () => {
+	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
+
+		let gettingSizePromises = [];
+		let uploadPromises = [];
 
 		for (let i = 0; i < images.length; i++) {
 			let image = images[i];
@@ -127,27 +124,15 @@ const init = () => {
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr);
 
-			/** Инициализация запроса */
-			const xhr = new XMLHttpRequest();
-
-			// Выполнить запрос, чтобы получить изображение
-			xhr.open('GET', url, true);
-
-			// Перевести изображение в формат BLOB
-			xhr.responseType = 'blob';
-
-			// Добавить слушатель (прогресс загрузки изображения)
-			xhr.addEventListener('progress', handleImageProgress);
-
-			// Добавить слушатель (полная загрузка изображения)
-			addImageLoadListener({
-				xhr,
-				image,
-				url,
-			});
-
-			xhr.send();
+			gettingSizePromises.push(getSizeOfOneImage(url));
+			uploadPromises.push(loadOneImage(url, image));
 		}
+
+		const imageInfoList = await Promise.all(gettingSizePromises);
+
+		allImagesTotalBytes = imageInfoList.reduce((acc, imageInfo) => acc + imageInfo.size, 0);
+
+		await Promise.all(uploadPromises);
 	};
 
 	/**
@@ -156,8 +141,7 @@ const init = () => {
 	 */
 	const handleDomContentLoaded = () => {
 		addPreloadOfPreloader();
-		getSizeOfAllImages();
-		addMonitoringImages();
+		loadAllImages();
 	};
 
 	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
