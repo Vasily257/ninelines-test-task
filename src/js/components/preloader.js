@@ -9,13 +9,14 @@ const init = () => {
 	let allImagesTotalBytes = 0;
 	/** Количество загруженных байт изображений */
 	let allImagesLoadedBytes = 0;
+	/** Соотношение виртуальных и физических пикселей */
+	const dpr = window.devicePixelRatio;
 
 	/**
 	 * Добавить предварительную загрузку прелоадера
 	 * @private
 	 */
 	const addPreloadOfPreloader = () => {
-		const dpr = window.devicePixelRatio;
 		const preloaderSrc =
 			'./images/guy-on-rocket.webp, ./images/guy-on-rocket@2x.webp 2x, ./images/guy-on-rocket.png, ./images/guy-on-rocket@2x.png 2x,';
 		const preloadLink = document.createElement('link');
@@ -116,7 +117,6 @@ const init = () => {
 	 */
 	const addMonitoringImages = () => {
 		const images = document.querySelectorAll('img[data-src]');
-		const dpr = window.devicePixelRatio;
 
 		for (let i = 0; i < images.length; i++) {
 			let image = images[i];
