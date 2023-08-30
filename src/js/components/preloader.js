@@ -70,7 +70,7 @@ const init = () => {
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
 	 */
-	const loadOneImage = (url) => {
+	const loadOneImage = (url, image) => {
 		return new Promise((resolve, reject) => {
 			/** Инициализация запроса */
 			const xhr = new XMLHttpRequest();
@@ -94,7 +94,9 @@ const init = () => {
 
 			xhr.onload = () => {
 				if (xhr.status === 200) {
-					resolve(xhr.response);
+					const blob = xhr.response;
+					const imgObjectURL = URL.createObjectURL(blob);
+					image.src = imgObjectURL;
 					console.log('Изображение загружено');
 				} else {
 					reject(new Error(`Ошибка загрузки изображения: ${url}`));
@@ -128,7 +130,7 @@ const init = () => {
 			const url = getBestSource(imageSrc, dpr);
 
 			sizePromises.push(getSizeOfOneImage(url));
-			loadImagePromises.push(loadOneImage(url));
+			loadImagePromises.push(loadOneImage(url, image));
 		}
 
 		Promise.all(sizePromises)
@@ -141,10 +143,7 @@ const init = () => {
 				console.log(`Общий размер изображений: ${totalSize} байт`);
 
 				Promise.all(loadImagePromises)
-					.then((response) => {
-						const blob = response;
-						const imgObjectURL = URL.createObjectURL(blob);
-						image.src = imgObjectURL;
+					.then(() => {
 						console.log('Все изображения загружены');
 					})
 					.catch((error) => {
