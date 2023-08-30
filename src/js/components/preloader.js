@@ -112,8 +112,12 @@ const init = () => {
 	 * Добавить слежение за загрузкой изображений
 	 * @private
 	 */
-	const loadAllImages = async () => {
+	const loadAllImages = () => {
 		const images = document.querySelectorAll('img[data-src]');
+
+		if (images.length === 0) {
+			return;
+		}
 
 		const gettingSizeXhrList = [];
 		const uploadingXhrList = [];
