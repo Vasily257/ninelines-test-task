@@ -103,8 +103,13 @@ const init = () => {
 		uploadingXhr.onload = () => {
 			if (uploadingXhr.status === 200) {
 				const blob = uploadingXhr.response;
+
+				// Создать временный URL и присводить его изображению
 				const imgObjectURL = URL.createObjectURL(blob);
 				image.src = imgObjectURL;
+
+				// Освободить временный URL
+				URL.revokeObjectURL(imgObjectURL);
 			} else {
 				throw new Error(`Ошибка загрузки изображения: ${url}`);
 			}
