@@ -9,8 +9,10 @@ const init = () => {
 	let allImagesTotalBytes = 0;
 	/** Количество загруженных байт изображений */
 	let allImagesLoadedBytes = 0;
-
+	/** Количество загруженных байт изображений, индексированные по URL изображения */
 	const indexImagesLoadedBytes = {};
+	/** Инициализированные запросы для загрузки изображений */
+	const uploadingXhrList = [];
 
 	/** Соотношение виртуальных и физических пикселей */
 	const dpr = window.devicePixelRatio;
@@ -37,8 +39,9 @@ const init = () => {
 	 * Получить размер одного изображения
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
+	 * @param {boolean} isLastOne является ли изображение последним на странице (необязательное)
 	 */
-	const initGettingSizeXhr = (url) => {
+	const initGettingSizeXhr = (url, isLastOne = false) => {
 		/** Инициализация запроса */
 		const gettingSizeXhr = new XMLHttpRequest();
 
@@ -51,6 +54,10 @@ const init = () => {
 
 			if (contentLength) {
 				allImagesTotalBytes += parseInt(contentLength, 10);
+
+				if (isLastOne) {
+					uploadingXhrList.forEach((xhr) => xhr.send());
+				}
 			} else {
 				throw new Error(`Не удалось получить размер для изображения: ${url}`);
 			}
@@ -122,7 +129,6 @@ const init = () => {
 		}
 
 		const gettingSizeXhrList = [];
-		const uploadingXhrList = [];
 
 		for (let i = 0; i < images.length; i++) {
 			const image = images[i];
@@ -135,17 +141,19 @@ const init = () => {
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
 
-			gettingSizeXhrList.push(initGettingSizeXhr(url));
+			// Если изображение последнее, то добавить пометку в запросе
+			if (i === images.length - 1) {
+				gettingSizeXhrList.push(initGettingSizeXhr(url, true));
+			} else {
+				gettingSizeXhrList.push(initGettingSizeXhr(url));
+			}
+
 			uploadingXhrList.push(initUploadingXhr(url, image));
 		}
 
 		for (let i = 0; i < gettingSizeXhrList.length; i++) {
 			const gettingSizeXhr = gettingSizeXhrList[i];
 			gettingSizeXhr.send();
-
-			if (i === gettingSizeXhrList.length - 1) {
-				uploadingXhrList.forEach((xhr) => xhr.send());
-			}
 		}
 	};
 
