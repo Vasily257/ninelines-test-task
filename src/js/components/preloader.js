@@ -1,4 +1,4 @@
-import {getBestSource} from '../modules/srcSet';
+import {getBestSource, checkWebpSupport} from '../modules/srcSet';
 
 /**
  * Инициализировать страницу
@@ -14,6 +14,8 @@ const init = () => {
 
 	/** Соотношение виртуальных и физических пикселей */
 	const dpr = window.devicePixelRatio;
+	/** Поддерживает ли браузер WebP */
+	let isBrowserWebpSupport = false;
 
 	/**
 	 * Добавить предварительную загрузку прелоадера
@@ -25,7 +27,7 @@ const init = () => {
 		const preloadLink = document.createElement('link');
 
 		preloadLink.rel = 'preload';
-		preloadLink.href = getBestSource(preloaderSrc, dpr);
+		preloadLink.href = getBestSource(preloaderSrc, dpr, isBrowserWebpSupport);
 		preloadLink.as = 'image';
 
 		document.head.appendChild(preloadLink);
@@ -131,7 +133,7 @@ const init = () => {
 			)}`;
 
 			/** Ссылка на изображение */
-			const url = getBestSource(imageSrc, dpr);
+			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
 
 			gettingSizeXhrList.push(initGettingSizeXhr(url));
 			uploadingXhrList.push(initUploadingXhr(url, image));
@@ -151,7 +153,9 @@ const init = () => {
 	 * Добавить слушатель события загрузки DOM
 	 * @private
 	 */
-	const handleDomContentLoaded = () => {
+	const handleDomContentLoaded = async () => {
+		isBrowserWebpSupport = await checkWebpSupport();
+
 		addPreloadOfPreloader();
 		loadAllImages();
 	};
