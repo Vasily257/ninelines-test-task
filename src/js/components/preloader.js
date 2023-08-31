@@ -13,6 +13,8 @@ const init = () => {
 	const indexImagesLoadedBytes = {};
 	/** Инициализированные запросы для загрузки изображений */
 	const uploadingXhrList = [];
+	/** Временные URL для загрузки BLOB-изображений */
+	const blobUrlList = [];
 
 	/** Соотношение виртуальных и физических пикселей */
 	const dpr = window.devicePixelRatio;
@@ -108,8 +110,7 @@ const init = () => {
 				const imgObjectURL = URL.createObjectURL(blob);
 				image.src = imgObjectURL;
 
-				// Освободить временный URL
-				URL.revokeObjectURL(imgObjectURL);
+				blobUrlList.push(imgObjectURL);
 			} else {
 				throw new Error(`Ошибка загрузки изображения: ${url}`);
 			}
@@ -174,6 +175,11 @@ const init = () => {
 	};
 
 	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
+
+	window.addEventListener('load', () => {
+		// Удалить временные URL BLOB-изображений
+		blobUrlList.forEach(URL.revokeObjectURL);
+	});
 };
 
 export default {
