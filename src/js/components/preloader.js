@@ -1,4 +1,5 @@
-import {getBestSource, checkWebpSupport} from '../modules/srcSet';
+import {getBestSource} from '../modules/srcSet';
+import {checkWebpSupport} from '../modules/checkingWebp';
 
 /**
  * Инициализировать страницу
