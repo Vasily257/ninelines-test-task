@@ -126,7 +126,9 @@ const init = () => {
 			const image = images[i];
 
 			// Строка с источником (источниками) изображений
-			const imageSrc = image.getAttribute('data-srcset') || image.getAttribute('data-src');
+			const imageSrc = `${image.getAttribute('data-src')}, ${image.getAttribute(
+				'data-srcset',
+			)}`;
 
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr);
