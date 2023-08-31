@@ -95,7 +95,7 @@ const init = () => {
 		// Следить за прогрессом загрузки и обновлять количество загруженных байт
 		uploadingXhr.onprogress = (event) => {
 			// Добавить URL в объект, если это первый запрос прогресса
-			if (!indexImagesLoadedBytes?.url) {
+			if (!indexImagesLoadedBytes[url]) {
 				indexImagesLoadedBytes[url] = 0;
 			}
 
