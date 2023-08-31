@@ -6,9 +6,9 @@ import {getBestSource, checkWebpSupport} from '../modules/srcSet';
  */
 const init = () => {
 	/** Количество всех байт изображений */
-	let allImagesTotalBytes = 0;
+	let imagesTotalBytes = 0;
 	/** Количество загруженных байт изображений */
-	let allImagesLoadedBytes = 0;
+	let imagesLoadedBytes = 0;
 	/** Количество загруженных байт изображений, индексированные по URL изображения */
 	const indexImagesLoadedBytes = {};
 	/** Инициализированные запросы для загрузки изображений */
@@ -53,7 +53,7 @@ const init = () => {
 			const contentLength = gettingSizeXhr.getResponseHeader('Content-Length');
 
 			if (contentLength) {
-				allImagesTotalBytes += parseInt(contentLength, 10);
+				imagesTotalBytes += parseInt(contentLength, 10);
 
 				if (isLastOne) {
 					uploadingXhrList.forEach((xhr) => xhr.send());
@@ -93,10 +93,10 @@ const init = () => {
 			}
 
 			if (event.lengthComputable) {
-				allImagesLoadedBytes -= indexImagesLoadedBytes[url];
+				imagesLoadedBytes -= indexImagesLoadedBytes[url];
 
 				indexImagesLoadedBytes[url] = event.loaded;
-				allImagesLoadedBytes += event.loaded;
+				imagesLoadedBytes += event.loaded;
 			}
 		};
 
