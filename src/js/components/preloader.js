@@ -28,12 +28,14 @@ const init = () => {
 	const addPreloadOfPreloader = () => {
 		const preloaderSrc =
 			'./images/guy-on-rocket.webp, ./images/guy-on-rocket@2x.webp 2x, ./images/guy-on-rocket.png, ./images/guy-on-rocket@2x.png 2x,';
-		const preloadLink = document.createElement('link');
 
+		// Подготовить ссылку на прелоадер
+		const preloadLink = document.createElement('link');
 		preloadLink.rel = 'preload';
 		preloadLink.href = getBestSource(preloaderSrc, dpr, isBrowserWebpSupport);
 		preloadLink.as = 'image';
 
+		// Добавить ссылку в head
 		document.head.appendChild(preloadLink);
 	};
 
@@ -57,6 +59,8 @@ const init = () => {
 			if (contentLength) {
 				imagesTotalBytes += parseInt(contentLength, 10);
 
+				// Запустить запросы для загрузки изображений, если
+				// завершился последний запрос для получения веса изображений
 				if (isLastOne) {
 					uploadingXhrList.forEach((xhr) => xhr.send());
 				}
@@ -90,26 +94,29 @@ const init = () => {
 
 		// Следить за прогрессом загрузки и обновлять количество загруженных байт
 		uploadingXhr.onprogress = (event) => {
+			// Добавить URL в объект, если это первый запрос прогресса
 			if (!indexImagesLoadedBytes?.url) {
 				indexImagesLoadedBytes[url] = 0;
 			}
 
 			if (event.lengthComputable) {
+				// Обновить количество загруженных байт для всех изображений
 				imagesLoadedBytes -= indexImagesLoadedBytes[url];
-
-				indexImagesLoadedBytes[url] = event.loaded;
 				imagesLoadedBytes += event.loaded;
+
+				// Обновить количество загруженных байт для текущего изображения
+				indexImagesLoadedBytes[url] = event.loaded;
 			}
 		};
 
 		uploadingXhr.onload = () => {
 			if (uploadingXhr.status === 200) {
+				// Создать временный BLOB-URL и присводить его изображению
 				const blob = uploadingXhr.response;
-
-				// Создать временный URL и присводить его изображению
 				const imgObjectURL = URL.createObjectURL(blob);
 				image.src = imgObjectURL;
 
+				// Добавить BLOB-URL в список, чтобы потом удалить его
 				blobUrlList.push(imgObjectURL);
 			} else {
 				throw new Error(`Ошибка загрузки изображения: ${url}`);
@@ -130,10 +137,12 @@ const init = () => {
 	const loadAllImages = () => {
 		const images = document.querySelectorAll('img[data-src]');
 
+		// Если изображений нет, то не загружать их
 		if (images.length === 0) {
 			return;
 		}
 
+		/** Инициализированные запросы для получения веса изображений */
 		const gettingSizeXhrList = [];
 
 		for (let i = 0; i < images.length; i++) {
@@ -154,9 +163,12 @@ const init = () => {
 				gettingSizeXhrList.push(initGettingSizeXhr(url));
 			}
 
+			// Добавить запрос для загрузки изображения в список,
+			// чтобы отправить его после получения веса всех изображений
 			uploadingXhrList.push(initUploadingXhr(url, image));
 		}
 
+		// Запустить запросы для получения веса изображений
 		for (let i = 0; i < gettingSizeXhrList.length; i++) {
 			const gettingSizeXhr = gettingSizeXhrList[i];
 			gettingSizeXhr.send();
@@ -164,7 +176,7 @@ const init = () => {
 	};
 
 	/**
-	 * Добавить слушатель события загрузки DOM
+	 * Обработать загрузку DOM
 	 * @private
 	 */
 	const handleDomContentLoaded = async () => {
@@ -174,6 +186,7 @@ const init = () => {
 		loadAllImages();
 	};
 
+	// Добавить глобальные слушатели событий
 	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
 
 	window.addEventListener('load', () => {
