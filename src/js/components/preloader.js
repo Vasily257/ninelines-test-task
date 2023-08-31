@@ -22,6 +22,14 @@ const init = () => {
 	let isBrowserWebpSupport = false;
 
 	/**
+	 * Проверить, поддерживает ли браузер формат WebP
+	 * @private
+	 */
+	const checkWebpBrowserSupport = async () => {
+		isBrowserWebpSupport = await checkWebpSupport();
+	};
+
+	/**
 	 * Добавить предварительную загрузку прелоадера
 	 * @private
 	 */
@@ -180,8 +188,7 @@ const init = () => {
 	 * @private
 	 */
 	const handleDomContentLoaded = async () => {
-		isBrowserWebpSupport = await checkWebpSupport();
-
+		await checkWebpBrowserSupport();
 		addPreloadOfPreloader();
 		loadAllImages();
 	};
