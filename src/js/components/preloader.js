@@ -193,13 +193,18 @@ const init = () => {
 		loadAllImages();
 	};
 
-	// Добавить глобальные слушатели событий
-	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
-
-	window.addEventListener('load', () => {
+	/**
+	 * Обработать загрузку страницы
+	 * @private
+	 */
+	const handlePageLoad = () => {
 		// Удалить временные URL BLOB-изображений
 		blobUrlList.forEach(URL.revokeObjectURL);
-	});
+	};
+
+	// Добавить глобальные слушатели событий
+	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
+	window.addEventListener('load', handlePageLoad);
 };
 
 export default {
