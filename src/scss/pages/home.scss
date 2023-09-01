@@ -24,13 +24,13 @@
 			}
 
 			&::after {
-				content: '';
+				content: "";
 				position: absolute;
 				left: 50%;
 				bottom: -65px;
 				transform: translate(-50%, 0);
 
-				@include sprite('wave-mobile-up');
+				@include sprite("wave-mobile-up");
 			}
 		}
 
@@ -53,13 +53,13 @@
 			}
 
 			&::before {
-				content: '';
+				content: "";
 				position: absolute;
 				left: 50%;
 				top: -50px;
 				transform: translate(-50%, 0);
 
-				@include sprite('wave-mobile-bottom');
+				@include sprite("wave-mobile-bottom");
 			}
 		}
 	}
@@ -275,8 +275,8 @@
 		}
 
 		&--fingers {
-			margin-top: 70px;
-			width: 255px;
+			margin-top: 68px;
+			width: 257px;
 
 			@include desktop {
 				margin-top: 236px;
@@ -307,17 +307,17 @@
 	&__education {
 		display: flex;
 		row-gap: 8px;
+		flex-basis: 50%;
 		flex-direction: column;
 		align-items: center;
-		flex-basis: 50%;
 		text-align: center;
 
 		@include desktop {
 			row-gap: 8px;
+			flex-basis: 80%;
 			grid-column: 4 / 5;
 			grid-row: 2 / 3;
 			margin-top: 0;
-			flex-basis: 80%;
 			height: fit-content;
 		}
 	}
@@ -348,7 +348,7 @@
 		row-gap: 17px;
 		flex-direction: column;
 		flex-wrap: nowrap;
-		margin-top: 18px;
+		margin-top: 17px;
 
 		@include desktop {
 			display: grid;
