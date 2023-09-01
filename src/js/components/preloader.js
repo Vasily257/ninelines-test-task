@@ -66,6 +66,14 @@ const init = () => {
 	};
 
 	/**
+	 * Скрыть прелоадер
+	 * @private
+	 */
+	const hidePreloader = () => {
+		preloaderWrapper.classList.add('preloader--hidden');
+	};
+
+	/**
 	 * Переместить прелоадер
 	 * @private
 	 * @param {number} progress коэффициент перемещения прелоадера
@@ -77,7 +85,7 @@ const init = () => {
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
 		if (progress === 1) {
-			preloaderWrapper.classList.add('preloader--hidden');
+			hidePreloader();
 
 			localStorage.setItem('preloaderStatus', 'shown');
 		}
@@ -236,7 +244,7 @@ const init = () => {
 		if (!localStorage.getItem('preloaderStatus')) {
 			addPreloadOfPreloader();
 		} else {
-			preloaderWrapper.classList.add('preloader--hidden');
+			hidePreloader();
 		}
 
 		loadAllImages();
