@@ -6,12 +6,16 @@ import {checkWebpSupport} from '../modules/checkingWebp';
  * @public
  */
 const init = () => {
-	/** Количество всех байт изображений */
-	let imagesTotalBytes = 0;
-	/** Количество загруженных байт изображений */
-	let imagesLoadedBytes = 0;
-	/** Количество загруженных байт изображений, индексированные по URL изображения */
-	const indexImagesLoadedBytes = {};
+	/** Количество байтов всех изображений */
+	const imagesBytes = {
+		/** Общее количество байтов */
+		total: 0,
+		/** Количество загруженных байтов */
+		loaded: 0,
+		/** Количество загруженных байтов, индексированные по URL изображения */
+		indexedbyUrlLoaded: {},
+	};
+
 	/** Инициализированные запросы для загрузки изображений */
 	const uploadingXhrList = [];
 	/** Временные URL для загрузки BLOB-изображений */
@@ -27,7 +31,7 @@ const init = () => {
 	/** Элемент изображения прелоадера */
 	const preloaderImage = preloaderWrapper.querySelector('.preloader__image');
 
-	/** Конечные позиция прелоадера */
+	/** Конечные позиции прелоадера */
 	const preloaderEnd = {
 		x: screen.availWidth + preloaderImage.clientWidth,
 		y: screen.availHeight + preloaderImage.clientHeight,
@@ -103,7 +107,7 @@ const init = () => {
 			const contentLength = gettingSizeXhr.getResponseHeader('Content-Length');
 
 			if (contentLength) {
-				imagesTotalBytes += parseInt(contentLength, 10);
+				imagesBytes.total += parseInt(contentLength, 10);
 
 				// Запустить запросы для загрузки изображений, если
 				// завершился последний запрос для получения веса изображений
@@ -141,21 +145,21 @@ const init = () => {
 		// Следить за прогрессом загрузки и обновлять количество загруженных байт
 		uploadingXhr.onprogress = (event) => {
 			// Добавить URL в объект, если это первый запрос прогресса
-			if (!indexImagesLoadedBytes[url]) {
-				indexImagesLoadedBytes[url] = 0;
+			if (!imagesBytes.indexedbyUrlLoaded[url]) {
+				imagesBytes.indexedbyUrlLoaded[url] = 0;
 			}
 
 			if (event.lengthComputable) {
 				// Обновить количество загруженных байт для всех изображений
-				imagesLoadedBytes -= indexImagesLoadedBytes[url];
-				imagesLoadedBytes += event.loaded;
+				imagesBytes.loaded -= imagesBytes.indexedbyUrlLoaded[url];
+				imagesBytes.loaded += event.loaded;
 
 				// Обновить количество загруженных байт для текущего изображения
-				indexImagesLoadedBytes[url] = event.loaded;
+				imagesBytes.indexedbyUrlLoaded[url] = event.loaded;
 
 				// Обновить положение прелоадера
 				if (!localStorage.getItem('preloaderStatus')) {
-					updatePreloaderPosition(imagesLoadedBytes / imagesTotalBytes);
+					updatePreloaderPosition(imagesBytes.loaded / imagesBytes.total);
 				}
 				// Не использован requestAnimationFrame, так как при низкой скорости интернета
 				// прелодаер моментально переходит в правое верхнее положение
