@@ -78,6 +78,8 @@ const init = () => {
 
 		if (progress === 1) {
 			preloaderWrapper.classList.add('preloader--hidden');
+
+			localStorage.setItem('preloaderStatus', 'shown');
 		}
 	};
 
@@ -150,7 +152,9 @@ const init = () => {
 				indexImagesLoadedBytes[url] = event.loaded;
 
 				// Обновить положение прелоадера
-				updatePreloaderPosition(imagesLoadedBytes / imagesTotalBytes);
+				if (!localStorage.getItem('preloaderStatus')) {
+					updatePreloaderPosition(imagesLoadedBytes / imagesTotalBytes);
+				}
 				// Не использован requestAnimationFrame, так как при низкой скорости интернета
 				// прелодаер моментально переходит в правое верхнее положение
 			}
@@ -228,7 +232,13 @@ const init = () => {
 	 */
 	const handleDomContentLoaded = async () => {
 		await checkWebpBrowserSupport();
-		addPreloadOfPreloader();
+
+		if (!localStorage.getItem('preloaderStatus')) {
+			addPreloadOfPreloader();
+		} else {
+			preloaderWrapper.classList.add('preloader--hidden');
+		}
+
 		loadAllImages();
 	};
 
