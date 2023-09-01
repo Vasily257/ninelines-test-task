@@ -214,11 +214,8 @@ const init = () => {
 			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
 
 			// Если изображение последнее, то добавить пометку в запросе
-			if (i === images.length - 1) {
-				gettingSizeXhrList.push(initGettingSizeXhr(url, true));
-			} else {
-				gettingSizeXhrList.push(initGettingSizeXhr(url));
-			}
+			const isLastOne = i === images.length - 1;
+			gettingSizeXhrList.push(initGettingSizeXhr(url, isLastOne));
 
 			// Добавить запрос для загрузки изображения в список,
 			// чтобы отправить его после получения веса всех изображений
@@ -226,10 +223,7 @@ const init = () => {
 		}
 
 		// Запустить запросы для получения веса изображений
-		for (let i = 0; i < gettingSizeXhrList.length; i++) {
-			const gettingSizeXhr = gettingSizeXhrList[i];
-			gettingSizeXhr.send();
-		}
+		gettingSizeXhrList.forEach((gettingSizeXhr) => gettingSizeXhr.send());
 	};
 
 	/**
