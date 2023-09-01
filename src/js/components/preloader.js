@@ -68,7 +68,7 @@ const init = () => {
 	 * @private
 	 * @param {number} progress коэффициент перемещения прелоадера
 	 */
-	const movePreloader = (progress) => {
+	const updatePreloaderPosition = (progress) => {
 		const currentX = endPreloaderX * progress;
 		const currentY = endPreloaderY * progress * -1;
 
@@ -144,7 +144,9 @@ const init = () => {
 				indexImagesLoadedBytes[url] = event.loaded;
 
 				// Обновить положение прелоадера
-				movePreloader(imagesLoadedBytes / imagesTotalBytes);
+				updatePreloaderPosition(imagesLoadedBytes / imagesTotalBytes);
+				// Не использован requestAnimationFrame, так как при низкой скорости интернета
+				// прелодаер моментально переходит в правое верхнее положение
 			}
 		};
 
