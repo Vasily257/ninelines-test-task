@@ -22,6 +22,21 @@ const init = () => {
 	/** Поддерживает ли браузер WebP */
 	let isBrowserWebpSupport = false;
 
+	/** Элемент прелоадера */
+	const preloader = document.querySelector('.preloader__image');
+	/** Ширина прелоадера */
+	const preloaderWidth = preloader.clientWidth;
+	/** Высота прелоадера */
+	const preloaderHeight = preloader.clientHeight;
+	/** Ширина экрана */
+	const windowWidth = screen.availWidth;
+	/** Высота экрана */
+	const windowHeight = screen.availHeight;
+	/** Конечная позиция прелоадера по горизонтали */
+	const endPreloaderX = windowWidth + preloaderWidth;
+	/** Конечная позиция прелоадера по вертикали */
+	const endPreloaderY = windowHeight + preloaderHeight;
+
 	/**
 	 * Проверить, поддерживает ли браузер формат WebP
 	 * @private
@@ -46,6 +61,18 @@ const init = () => {
 
 		// Добавить ссылку в head
 		document.head.appendChild(preloadLink);
+	};
+
+	/**
+	 * Переместить прелоадер
+	 * @private
+	 * @param {number} progress коэффициент перемещения прелоадера
+	 */
+	const movePreloader = (progress) => {
+		const currentX = endPreloaderX * progress;
+		const currentY = endPreloaderY * progress * -1;
+
+		preloader.style.transform = `translate(${currentX}px, ${currentY}px)`;
 	};
 
 	/**
@@ -115,6 +142,9 @@ const init = () => {
 
 				// Обновить количество загруженных байт для текущего изображения
 				indexImagesLoadedBytes[url] = event.loaded;
+
+				// Обновить положение прелоадера
+				movePreloader(imagesLoadedBytes / imagesTotalBytes);
 			}
 		};
 

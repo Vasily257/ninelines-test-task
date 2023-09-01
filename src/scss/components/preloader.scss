@@ -9,8 +9,9 @@
 
 	&__image {
 		position: absolute;
-		left: 0;
-		top: 0;
-		transform: translate(-110vw, 110vh);
+		top: 100%;
+		right: 100%;
+		transform: translate(0, 0);
+		transition: transform $duration-normal;
 	}
 }
