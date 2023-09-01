@@ -26,18 +26,12 @@ const init = () => {
 	const preloaderWrapper = document.querySelector('.preloader');
 	/** Элемент изображения прелоадера */
 	const preloaderImage = preloaderWrapper.querySelector('.preloader__image');
-	/** Ширина прелоадера */
-	const preloaderWidth = preloaderImage.clientWidth;
-	/** Высота прелоадера */
-	const preloaderHeight = preloaderImage.clientHeight;
-	/** Ширина экрана */
-	const windowWidth = screen.availWidth;
-	/** Высота экрана */
-	const windowHeight = screen.availHeight;
-	/** Конечная позиция прелоадера по горизонтали */
-	const endPreloaderX = windowWidth + preloaderWidth;
-	/** Конечная позиция прелоадера по вертикали */
-	const endPreloaderY = windowHeight + preloaderHeight;
+
+	/** Конечные позиция прелоадера */
+	const preloaderEnd = {
+		x: screen.availWidth + preloaderImage.clientWidth,
+		y: screen.availHeight + preloaderImage.clientHeight,
+	};
 
 	/**
 	 * Проверить, поддерживает ли браузер формат WebP
@@ -79,8 +73,8 @@ const init = () => {
 	 * @param {number} progress коэффициент перемещения прелоадера
 	 */
 	const updatePreloaderPosition = (progress) => {
-		const currentX = endPreloaderX * progress;
-		const currentY = endPreloaderY * progress * -1;
+		const currentX = preloaderEnd.x * progress;
+		const currentY = preloaderEnd.y * progress * -1;
 
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
