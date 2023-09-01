@@ -22,12 +22,14 @@ const init = () => {
 	/** Поддерживает ли браузер WebP */
 	let isBrowserWebpSupport = false;
 
-	/** Элемент прелоадера */
-	const preloader = document.querySelector('.preloader__image');
+	/** Элемент обертки прелоадера */
+	const preloaderWrapper = document.querySelector('.preloader');
+	/** Элемент изображения прелоадера */
+	const preloaderImage = preloaderWrapper.querySelector('.preloader__image');
 	/** Ширина прелоадера */
-	const preloaderWidth = preloader.clientWidth;
+	const preloaderWidth = preloaderImage.clientWidth;
 	/** Высота прелоадера */
-	const preloaderHeight = preloader.clientHeight;
+	const preloaderHeight = preloaderImage.clientHeight;
 	/** Ширина экрана */
 	const windowWidth = screen.availWidth;
 	/** Высота экрана */
@@ -72,7 +74,11 @@ const init = () => {
 		const currentX = endPreloaderX * progress;
 		const currentY = endPreloaderY * progress * -1;
 
-		preloader.style.transform = `translate(${currentX}px, ${currentY}px)`;
+		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
+
+		if (progress === 1) {
+			preloaderWrapper.classList.add('preloader--hidden');
+		}
 	};
 
 	/**
