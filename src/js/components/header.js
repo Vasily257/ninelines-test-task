@@ -7,7 +7,6 @@ function openMenu() {
 		helpers.lockScroll(true, helpers.$header.find('.header__menu'), 'header');
 
 		helpers.$header.addClass('is-menu-opened');
-		$('.header__menu').removeClass('is-hidden');
 
 		setImmediate(() => {
 			helpers.$body.css('padding-right', `${helpers.getScrollbarWidth()}px`);
@@ -35,12 +34,7 @@ function closeMenu() {
 
 		$('.header__menu').removeClass('is-active');
 
-		setTimeout(() => {
-			$('.header__menu').addClass('is-hidden');
-			$('.js-burger').removeClass('is-disabled').attr('disabled', false);
-
-			resolve();
-		}, 500);
+		$('.js-burger').removeClass('is-disabled').attr('disabled', false);		resolve();
 	});
 }
 

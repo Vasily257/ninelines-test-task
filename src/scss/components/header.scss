@@ -36,12 +36,12 @@
 		background-color: $color-background;
 		opacity: 0;
 		visibility: hidden;
-		transition: opacity $duration-normal, visibility $duration-normal;
 		-webkit-overflow-scrolling: touch;
 
 		@include active {
 			opacity: 1;
 			visibility: visible;
+			transition: opacity $duration-normal, visibility $duration-normal;
 		}
 
 		@include desktop {
