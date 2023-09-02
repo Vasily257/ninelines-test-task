@@ -141,6 +141,10 @@
 		line-height: 1.4;
 
 		&--link {
+			&:focus-visible {
+				color: $color-secondary;
+			}
+
 			@include hover {
 				color: $color-secondary;
 			}
