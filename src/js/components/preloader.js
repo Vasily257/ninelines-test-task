@@ -35,8 +35,8 @@ const init = () => {
 
 	/** Конечные позиции прелоадера */
 	const preloaderEnd = {
-		x: screen.availWidth + preloaderImage.clientWidth,
-		y: screen.availHeight + preloaderImage.clientHeight,
+		x: root.clientWidth + preloaderImage.clientWidth,
+		y: root.clientHeight + preloaderImage.clientHeight,
 	};
 
 	/**
