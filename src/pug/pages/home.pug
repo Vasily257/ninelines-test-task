@@ -1,5 +1,5 @@
 main.home
-	section.home__section.home__section--about
+	section.home__section.home__section--about#about
 		//-  Блок «О себе»
 		h1.home__title.home__title--about!= data.home.about.name
 		p.home__about-bio!= data.home.about.bio
@@ -17,7 +17,7 @@ main.home
 					li
 						+svg(social).home__social-icon
 
-	section.home__section.home__section--job-education
+	section.home__section.home__section--job-education#resume
 		//- Блок «Опыт работы»
 		h2.home__title
 			| Опыт работы
@@ -78,7 +78,7 @@ main.home
 					each institution in education.institutions
 						p.home__education-institution!= institution
 
-	section.home__section.home__section--skills
+	section.home__section.home__section--skills#skills
 		//-  Блок «Навыки»
 		h2.home__title.home__title--skills
 			| Навыки
