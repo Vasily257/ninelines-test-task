@@ -50,6 +50,7 @@
 			height: auto;
 			opacity: 1;
 			visibility: visible;
+			overflow: visible;
 		}
 	}
 
@@ -106,15 +107,39 @@
 	}
 
 	&__menu-item {
+		position: relative;
+		width: fit-content;
 		font-weight: 700;
 		font-size: 26px;
 
+		&::before {
+			display: block;
+			content: none;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -65%);
+
+			@include sprite('active-mobile');
+		}
+
+		&:active::before {
+			content: '';
+		}
+
 		@include desktop {
 			font-size: 18px;
+
+			&::before {
+				transform: translate(-50%, -70%);
+				@include sprite('active-desktop');
+			}
 		}
 	}
 
 	&__menu-link {
+		position: relative;
+		display: inline-block;
 		color: $color-primary;
 	}
 
