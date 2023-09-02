@@ -139,6 +139,12 @@
 
 	&__contact {
 		line-height: 1.4;
+
+		&--link {
+			@include hover {
+				color: $color-secondary;
+			}
+		}
 	}
 
 	&__socials {

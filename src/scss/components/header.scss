@@ -141,6 +141,10 @@
 		position: relative;
 		display: inline-block;
 		color: $color-primary;
+
+		@include hover {
+			color: $color-secondary;
+		}
 	}
 
 	&__menu-image {
