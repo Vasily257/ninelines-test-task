@@ -52,7 +52,7 @@ const init = () => {
 	 * @private
 	 */
 	const disableScroll = () => {
-		root.style.overflow = 'hidden';
+		root.classList.add('is-lock-scroll');
 	};
 
 	/**
@@ -60,7 +60,7 @@ const init = () => {
 	 * @private
 	 */
 	const enableScroll = () => {
-		root.style.overflow = 'auto';
+		root.classList.remove('is-lock-scroll');
 	};
 
 	/**
@@ -250,10 +250,11 @@ const init = () => {
 	 * @private
 	 */
 	const handleDomContentLoaded = async () => {
+		disableScroll();
+
 		await checkWebpBrowserSupport();
 
 		if (!localStorage.getItem('preloaderStatus')) {
-			disableScroll();
 			addPreloadOfPreloader();
 		} else {
 			hidePreloader();
