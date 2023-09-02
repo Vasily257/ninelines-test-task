@@ -26,8 +26,10 @@ const init = () => {
 	/** Поддерживает ли браузер WebP */
 	let isBrowserWebpSupport = false;
 
+	/** Корневой элемент (html) */
+	const root = document.documentElement;
 	/** Элемент обертки прелоадера */
-	const preloaderWrapper = document.querySelector('.preloader');
+	const preloaderWrapper = root.querySelector('.preloader');
 	/** Элемент изображения прелоадера */
 	const preloaderImage = preloaderWrapper.querySelector('.preloader__image');
 
@@ -43,6 +45,22 @@ const init = () => {
 	 */
 	const checkWebpBrowserSupport = async () => {
 		isBrowserWebpSupport = await checkWebpSupport();
+	};
+
+	/**
+	 * Отключить скролл на странице
+	 * @private
+	 */
+	const disableScroll = () => {
+		root.style.overflow = 'hidden';
+	};
+
+	/**
+	 * Включить скролл на странице
+	 * @private
+	 */
+	const enableScroll = () => {
+		root.style.overflow = 'auto';
 	};
 
 	/**
@@ -83,6 +101,7 @@ const init = () => {
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
 		if (progress === 1) {
+			enableScroll();
 			hidePreloader();
 
 			localStorage.setItem('preloaderStatus', 'shown');
@@ -234,9 +253,11 @@ const init = () => {
 		await checkWebpBrowserSupport();
 
 		if (!localStorage.getItem('preloaderStatus')) {
+			disableScroll();
 			addPreloadOfPreloader();
 		} else {
 			hidePreloader();
+			enableScroll();
 		}
 
 		loadAllImages();
