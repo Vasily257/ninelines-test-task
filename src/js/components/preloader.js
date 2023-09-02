@@ -187,7 +187,7 @@ const init = () => {
 
 		uploadingXhr.onload = () => {
 			if (uploadingXhr.status === 200) {
-				// Создать временный BLOB-URL и присводить его изображению
+				// Создать временный BLOB-URL и присвоить его изображению
 				const blob = uploadingXhr.response;
 				const imgObjectURL = URL.createObjectURL(blob);
 				image.src = imgObjectURL;
