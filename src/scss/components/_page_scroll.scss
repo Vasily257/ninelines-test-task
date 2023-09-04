@@ -10,12 +10,17 @@
 	width: 30px;
 	height: 30px;
 	background-color: $color-white;
+	cursor: default;
 
 	@include desktop {
 		right: 25px;
 		bottom: 90px;
 		width: 48px;
 		height: 48px;
+	}
+
+	&--cursor-pointer {
+		cursor: pointer;
 	}
 
 	&::after {

@@ -23,10 +23,15 @@ const init = () => {
 		if (percentages === 100) {
 			pageScrollIndicator.setAttribute('data-percentages', '');
 
+			pageScrollIndicator.classList.add('js-back-to-top');
+			pageScrollIndicator.classList.add('page-scroll--cursor-pointer');
 			arrow.classList.add('page-scroll__arrow--shown');
 		} else {
 			if (arrow.classList.contains('page-scroll__arrow--shown')) {
 				arrow.classList.remove('page-scroll__arrow--shown');
+
+				pageScrollIndicator.classList.remove('page-scroll--cursor-pointer');
+				pageScrollIndicator.classList.remove('js-back-to-top');
 			}
 
 			pageScrollIndicator.setAttribute('data-percentages', `${percentages} %`);

@@ -9,11 +9,13 @@ import preloader from './components/preloader';
 import pageScroll from './components/page-scroll';
 import lazyLoading from './modules/lazyLoading';
 import scrollToAnchor from './modules/scrollToAnchor';
+import backToTop from './modules/backToTop';
 
 ieFix();
 vhFix();
 actualYear();
 scrollToAnchor.init();
+backToTop.init();
 
 header.init();
 preloader.init();
