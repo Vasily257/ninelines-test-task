@@ -5,11 +5,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid #d2233c;
+	border: none;
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
-	background-color: $color-white;
+	background-image: conic-gradient(#d2233c 0 0, $color-primary 0 100%);
 	cursor: default;
 
 	@include desktop {
@@ -28,6 +28,7 @@
 		position: absolute;
 		left: 50%;
 		top: 50%;
+		z-index: 2;
 		display: block;
 		width: 100%;
 		font-size: 10px;
@@ -40,8 +41,28 @@
 		}
 	}
 
+	&::before {
+		content: "";
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		z-index: 1;
+		display: block;
+		border-radius: 50%;
+		width: 28px;
+		height: 28px;
+		background-color: $color-white;
+		transform: translate(-50%, -50%);
+
+		@include desktop {
+			width: 46px;
+			height: 46px;
+		}
+	}
+
 	&__arrow {
 		position: relative;
+		z-index: 2;
 		display: none;
 		width: 12px;
 
