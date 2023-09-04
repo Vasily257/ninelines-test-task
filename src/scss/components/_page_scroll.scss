@@ -37,7 +37,12 @@
 
 	&__arrow {
 		position: relative;
+		display: none;
 		width: 12px;
+
+		&--shown {
+			display: block;
+		}
 
 		@include desktop {
 			width: 20px;
