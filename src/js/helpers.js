@@ -200,6 +200,29 @@ function resize() {
 	}, 300);
 }
 
+/**
+ * Уменьшить частоту выполнения функции
+ * @param {Function} throttledFunction функция, которую нужно реже вызывать
+ * @param {number} timeout интервал вызовов функции в мс
+ */
+export function throttle(throttledFunction, timeout) {
+	let timer = null;
+
+	return function perform(...args) {
+		if (timer) {
+			return;
+		}
+
+		timer = setTimeout(() => {
+			throttledFunction(...args);
+
+			clearTimeout(timer);
+
+			timer = null;
+		}, timeout);
+	};
+}
+
 vars.$window.on('resize', resize);
 
 export default vars;
