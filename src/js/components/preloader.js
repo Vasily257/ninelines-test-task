@@ -109,40 +109,28 @@ const init = () => {
 	};
 
 	/**
-	 * Получить размер одного изображения
+	 * Инициализировать запрос для получения размер изображения
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
-	 * @param {boolean} isLastOne является ли изображение последним на странице (необязательное)
 	 */
-	const initGettingSizeXhr = (url, isLastOne = false) => {
-		/** Инициализация запроса */
-		const gettingSizeXhr = new XMLHttpRequest();
+	const initGettingSizeFetch = async (url) => {
+		try {
+			const response = await fetch(url, {method: 'HEAD'});
 
-		// Выполнить запрос, чтобы получить метаданные изображения
-		gettingSizeXhr.open('HEAD', url, true);
+			if (!response.ok) {
+				throw new Error(`Ошибка при запросе метаданных для изображения: ${url}`);
+			}
 
-		gettingSizeXhr.onload = () => {
 			/** Размер изображения в байтах */
-			const contentLength = gettingSizeXhr.getResponseHeader('Content-Length');
+			const contentLength = response.headers.get('Content-Length');
 
+			// Обновить общий размер изображений
 			if (contentLength) {
 				imagesBytes.total += parseInt(contentLength, 10);
-
-				// Запустить запросы для загрузки изображений, если
-				// завершился последний запрос для получения веса изображений
-				if (isLastOne) {
-					uploadingXhrList.forEach((xhr) => xhr.send());
-				}
-			} else {
-				throw new Error(`Не удалось получить размер для изображения: ${url}`);
 			}
-		};
-
-		gettingSizeXhr.onerror = () => {
-			throw new Error(`Ошибка при запросе метаданных для изображения: ${url}`);
-		};
-
-		return gettingSizeXhr;
+		} catch (error) {
+			throw new Error(`Не удалось получить размер для изображения: ${url}`);
+		}
 	};
 
 	/**
@@ -210,7 +198,7 @@ const init = () => {
 	 * Добавить слежение за загрузкой изображений
 	 * @private
 	 */
-	const loadAllImages = () => {
+	const loadAllImages = async () => {
 		const images = document.querySelectorAll('img[data-src]');
 
 		// Если изображений нет, то не загружать их
@@ -219,30 +207,27 @@ const init = () => {
 		}
 
 		/** Инициализированные запросы для получения веса изображений */
-		const gettingSizeXhrList = [];
+		const gettingSizeFetchList = [];
 
 		for (let i = 0; i < images.length; i++) {
 			const image = images[i];
 
 			// Строка с источником (источниками) изображений
-			const imageSrc = `${image.getAttribute('data-srcset')}, ${image.getAttribute(
-				'data-src',
-			)}`;
+			const imageSrc = `${image.getAttribute('data-srcset')}, ${image.getAttribute('data-src')}`;
 
 			/** Ссылка на изображение */
 			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
 
-			// Если изображение последнее, то добавить пометку в запросе
-			const isLastOne = i === images.length - 1;
-			gettingSizeXhrList.push(initGettingSizeXhr(url, isLastOne));
+			gettingSizeFetchList.push(initGettingSizeFetch(url));
 
 			// Добавить запрос для загрузки изображения в список,
 			// чтобы отправить его после получения веса всех изображений
 			uploadingXhrList.push(initUploadingXhr(url, image));
 		}
 
-		// Запустить запросы для получения веса изображений
-		gettingSizeXhrList.forEach((gettingSizeXhr) => gettingSizeXhr.send());
+		await Promise.all(gettingSizeFetchList);
+
+		uploadingXhrList.forEach((xhr) => xhr.send());
 	};
 
 	/**
