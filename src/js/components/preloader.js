@@ -133,6 +133,26 @@ const init = () => {
 	};
 
 	/**
+	 * Обновить значения байтов
+	 * @private
+	 * @param {string} url URL изображение
+	 * @param {number} value текущее значение загруженных байт изображения
+	 */
+	const updateLoadedBytes = (url, value) => {
+		// Добавить URL изображения в объект, если это первое чтение потока
+		if (!imagesBytes.indexedbyUrlLoaded[url]) {
+			imagesBytes.indexedbyUrlLoaded[url] = 0;
+		}
+
+		// Обновить количество загруженных байт для всех изображений
+		imagesBytes.loaded -= imagesBytes.indexedbyUrlLoaded[url];
+		imagesBytes.loaded += value.length;
+
+		// Обновить количество загруженных байт для текущего изображения
+		imagesBytes.indexedbyUrlLoaded[url] = value.length;
+	};
+
+	/**
 	 * Переместить прелоадер
 	 * @private
 	 * @param {number} progress коэффициент перемещения прелоадера
@@ -182,17 +202,8 @@ const init = () => {
 
 				chunks.push(value);
 
-				// Добавить URL изображения в объект, если это первое чтение потока
-				if (!imagesBytes.indexedbyUrlLoaded[url]) {
-					imagesBytes.indexedbyUrlLoaded[url] = 0;
-				}
-
-				// Обновить количество загруженных байт для всех изображений
-				imagesBytes.loaded -= imagesBytes.indexedbyUrlLoaded[url];
-				imagesBytes.loaded += value.length;
-
-				// Обновить количество загруженных байт для текущего изображения
-				imagesBytes.indexedbyUrlLoaded[url] = value.length;
+				// Получить новое значение загруженных байт, чтобы обновить положение прелоадера
+				updateLoadedBytes(url, value);
 
 				// Обновить положение прелоадера
 				if (!localStorage.getItem('preloaderStatus')) {
