@@ -164,9 +164,6 @@ const init = () => {
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
 		if (progress === 1) {
-			hidePreloader();
-			enableScroll();
-
 			localStorage.setItem('preloaderStatus', 'shown');
 		}
 	};
@@ -176,8 +173,9 @@ const init = () => {
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
+	 * @param {boolean} isLastOne является ли изображение последним в массиве
 	 */
-	const fetchUploading = async (url, image) => {
+	const fetchUploading = async (url, image, isLastOne) => {
 		try {
 			const response = await fetch(url);
 
@@ -224,6 +222,11 @@ const init = () => {
 			// Удалить временную BLOB-ссылку после загрузки изображения
 			image.addEventListener('load', () => {
 				URL.revokeObjectURL(imgObjectURL);
+
+				if (isLastOne) {
+					hidePreloader();
+					enableScroll();
+				}
 			});
 		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
@@ -242,9 +245,16 @@ const init = () => {
 			return;
 		}
 
-		// Запустить по очереди запросы для получения размера изображений и самих изображений
+		// Запустить запросы для получения размера изображений
 		imageInfoList.forEach((imageInfo) => fetchGettingSize(imageInfo.url));
-		imageInfoList.forEach((imageInfo) => fetchUploading(imageInfo.url, imageInfo.image));
+
+		// Запустить запросы для загрузки самих изображений
+		for (let i = 0; i < imageInfoList.length; i++) {
+			const imageInfo = imageInfoList[i];
+			const isLastOne = i === imageInfoList.length - 1;
+
+			await fetchUploading(imageInfo.url, imageInfo.image, isLastOne);
+		}
 	};
 
 	/**
@@ -263,22 +273,13 @@ const init = () => {
 			enableScroll();
 		}
 
-		loadAllImages();
+		await loadAllImages();
+
+		document.removeEventListener('DOMContentLoaded', handleDomContentLoaded);
 	};
 
-	/**
-	 * Обработать загрузку страницы
-	 * @private
-	 */
-	const handlePageLoad = () => {
-		// Принудительно удалить прелоадер, если байты неправильно посчитались
-		hidePreloader();
-		enableScroll();
-	};
-
-	// Добавить глобальные слушатели событий
+	// Добавить глобальный слушатель событий
 	document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
-	window.addEventListener('load', handlePageLoad);
 };
 
 export default {
