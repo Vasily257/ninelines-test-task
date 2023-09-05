@@ -16,9 +16,6 @@ const init = () => {
 		indexedbyUrlLoaded: {},
 	};
 
-	/** Временные URL для загрузки BLOB-изображений */
-	const blobUrlList = [];
-
 	/** Соотношение виртуальных и физических пикселей */
 	const dpr = window.devicePixelRatio;
 	/** Поддерживает ли браузер WebP */
@@ -213,8 +210,10 @@ const init = () => {
 			const imgObjectURL = URL.createObjectURL(imgBlob);
 			image.src = imgObjectURL;
 
-			// Добавить BLOB-ссылку в список, чтобы потом удалить её
-			blobUrlList.push(imgObjectURL);
+			// Удалить временную BLOB-ссылку после загрузки изображения
+			image.addEventListener('load', () => {
+				URL.revokeObjectURL(imgObjectURL);
+			});
 		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
 		}
@@ -261,9 +260,6 @@ const init = () => {
 	 * @private
 	 */
 	const handlePageLoad = () => {
-		// Удалить временные URL BLOB-изображений
-		blobUrlList.forEach(URL.revokeObjectURL);
-
 		// Принудительно удалить прелоадер, если байты неправильно посчитались
 		hidePreloader();
 		enableScroll();
