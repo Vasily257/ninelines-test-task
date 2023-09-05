@@ -84,7 +84,9 @@ const init = () => {
 	 * @private
 	 */
 	const hidePreloader = () => {
-		preloaderWrapper.classList.add('preloader--hidden');
+		if (!preloaderWrapper.classList.contains('preloader--hidden')) {
+			preloaderWrapper.classList.add('preloader--hidden');
+		}
 	};
 
 	/**
@@ -99,8 +101,8 @@ const init = () => {
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
 		if (progress === 1) {
-			enableScroll();
 			hidePreloader();
+			enableScroll();
 
 			localStorage.setItem('preloaderStatus', 'shown');
 		}
@@ -261,6 +263,10 @@ const init = () => {
 	const handlePageLoad = () => {
 		// Удалить временные URL BLOB-изображений
 		blobUrlList.forEach(URL.revokeObjectURL);
+
+		// Принудительно удалить прелоадер, если байты неправильно посчитались
+		hidePreloader();
+		enableScroll();
 	};
 
 	// Добавить глобальные слушатели событий
