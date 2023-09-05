@@ -169,6 +169,29 @@ const init = () => {
 	};
 
 	/**
+	 * Создать функцию, которая будет обрабатывать загрузку изображения
+	 * @private
+	 * @param {HTMLElement} image ссылка на элемент изображения
+	 * @param {string} imgObjectURL строка с адресом изобрадения
+	 * @param {boolean} isLastOne является ли изображение последним в массиве
+	 */
+	const createHandleImageLoad = (image, imgObjectURL, isLastOne) => {
+		return function handleImageLoad() {
+			// Удалить временную BLOB-ссылку после загрузки изображения
+			URL.revokeObjectURL(imgObjectURL);
+
+			// Скрыть прелоадер после последнего запроса
+			if (isLastOne) {
+				hidePreloader();
+				enableScroll();
+			}
+
+			// Удалить обработчик после завершения запроса
+			image.removeEventListener('load', handleImageLoad);
+		};
+	};
+
+	/**
 	 * Загрузить одно изображение и отследить прогресс загрузки
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
@@ -219,15 +242,8 @@ const init = () => {
 			const imgObjectURL = URL.createObjectURL(imgBlob);
 			image.src = imgObjectURL;
 
-			// Удалить временную BLOB-ссылку после загрузки изображения
-			image.addEventListener('load', () => {
-				URL.revokeObjectURL(imgObjectURL);
-
-				if (isLastOne) {
-					hidePreloader();
-					enableScroll();
-				}
-			});
+			const handleImageLoad = createHandleImageLoad(image, imgObjectURL, isLastOne);
+			image.addEventListener('load', handleImageLoad);
 		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
 		}
