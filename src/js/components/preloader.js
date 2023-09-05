@@ -35,14 +35,6 @@ const init = () => {
 	};
 
 	/**
-	 * Проверить, поддерживает ли браузер формат WebP
-	 * @private
-	 */
-	const checkWebpBrowserSupport = async () => {
-		isBrowserWebpSupport = await checkWebpSupport();
-	};
-
-	/**
 	 * Отключить скролл на странице
 	 * @private
 	 */
@@ -56,6 +48,14 @@ const init = () => {
 	 */
 	const enableScroll = () => {
 		root.classList.remove('is-lock-scroll');
+	};
+
+	/**
+	 * Проверить, поддерживает ли браузер формат WebP
+	 * @private
+	 */
+	const checkWebpBrowserSupport = async () => {
+		isBrowserWebpSupport = await checkWebpSupport();
 	};
 
 	/**
@@ -83,25 +83,6 @@ const init = () => {
 	const hidePreloader = () => {
 		if (!preloaderWrapper.classList.contains('preloader--hidden')) {
 			preloaderWrapper.classList.add('preloader--hidden');
-		}
-	};
-
-	/**
-	 * Переместить прелоадер
-	 * @private
-	 * @param {number} progress коэффициент перемещения прелоадера
-	 */
-	const updatePreloaderPosition = (progress) => {
-		const currentX = preloaderEnd.x * progress;
-		const currentY = preloaderEnd.y * progress * -1;
-
-		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
-
-		if (progress === 1) {
-			hidePreloader();
-			enableScroll();
-
-			localStorage.setItem('preloaderStatus', 'shown');
 		}
 	};
 
@@ -148,6 +129,25 @@ const init = () => {
 			}
 		} catch (error) {
 			throw new Error(`Не удалось получить размер для изображения: ${url}`);
+		}
+	};
+
+	/**
+	 * Переместить прелоадер
+	 * @private
+	 * @param {number} progress коэффициент перемещения прелоадера
+	 */
+	const updatePreloaderPosition = (progress) => {
+		const currentX = preloaderEnd.x * progress;
+		const currentY = preloaderEnd.y * progress * -1;
+
+		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
+
+		if (progress === 1) {
+			hidePreloader();
+			enableScroll();
+
+			localStorage.setItem('preloaderStatus', 'shown');
 		}
 	};
 
