@@ -16,8 +16,6 @@ const init = () => {
 		indexedbyUrlLoaded: {},
 	};
 
-	/** Инициализированные запросы для загрузки изображений */
-	const uploadingXhrList = [];
 	/** Временные URL для загрузки BLOB-изображений */
 	const blobUrlList = [];
 
@@ -109,11 +107,32 @@ const init = () => {
 	};
 
 	/**
-	 * Инициализировать запрос для получения размер изображения
+	 * Получить информацию по изображения (URL и ссылку на элемент изображения)
+	 * @private
+	 */
+	const getImageInfoList = () => {
+		const images = document.querySelectorAll('img[data-src]');
+		const imageInfoList = [];
+
+		for (const image of images) {
+			const imageSrc = `${image.getAttribute('data-srcset')}, ${image.getAttribute('data-src')}`;
+			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
+
+			imageInfoList.push({
+				url,
+				image,
+			});
+		}
+
+		return imageInfoList;
+	};
+
+	/**
+	 * Получить размер изображения
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 */
-	const initGettingSizeFetch = async (url) => {
+	const fetchGettingSize = async (url) => {
 		try {
 			const response = await fetch(url, {method: 'HEAD'});
 
@@ -139,59 +158,64 @@ const init = () => {
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
 	 */
-	const initUploadingXhr = (url, image) => {
-		/** Инициализация запроса */
-		const uploadingXhr = new XMLHttpRequest();
+	const fetchUploading = async (url, image) => {
+		try {
+			const response = await fetch(url);
 
-		// Установить типа ответа на BLOB
-		uploadingXhr.responseType = 'blob';
-
-		// Выполнить запрос, чтобы загрузить изображение
-		uploadingXhr.open('GET', url, true);
-
-		// Следить за прогрессом загрузки и обновлять количество загруженных байт
-		uploadingXhr.onprogress = (event) => {
-			// Добавить URL в объект, если это первый запрос прогресса
-			if (!imagesBytes.indexedbyUrlLoaded[url]) {
-				imagesBytes.indexedbyUrlLoaded[url] = 0;
+			if (!response.ok) {
+				throw new Error(`Ошибка загрузки изображения: ${url}`);
 			}
 
-			if (event.lengthComputable) {
+			/** Поток данных изображения */
+			const reader = response.body.getReader();
+			/** Части потока данных */
+			const chunks = [];
+
+			// В Streams API есть асинхронный перебор цикла,
+			// но он плохо поддерживается, поэтому используется while
+			// eslint-disable-next-line no-constant-condition
+			while (true) {
+				const {done, value} = await reader.read();
+
+				if (done) {
+					break;
+				}
+
+				chunks.push(value);
+
+				// Добавить URL изображения в объект, если это первое чтение потока
+				if (!imagesBytes.indexedbyUrlLoaded[url]) {
+					imagesBytes.indexedbyUrlLoaded[url] = 0;
+				}
+
 				// Обновить количество загруженных байт для всех изображений
 				imagesBytes.loaded -= imagesBytes.indexedbyUrlLoaded[url];
-				imagesBytes.loaded += event.loaded;
+				imagesBytes.loaded += value.length;
 
 				// Обновить количество загруженных байт для текущего изображения
-				imagesBytes.indexedbyUrlLoaded[url] = event.loaded;
+				imagesBytes.indexedbyUrlLoaded[url] = value.length;
 
 				// Обновить положение прелоадера
 				if (!localStorage.getItem('preloaderStatus')) {
 					updatePreloaderPosition(imagesBytes.loaded / imagesBytes.total);
 				}
-				// Не использован requestAnimationFrame, так как при низкой скорости интернета
+				// Не используется requestAnimationFrame, так как при низкой скорости интернета
 				// прелодаер моментально переходит в правое верхнее положение
 			}
-		};
 
-		uploadingXhr.onload = () => {
-			if (uploadingXhr.status === 200) {
-				// Создать временный BLOB-URL и присвоить его изображению
-				const blob = uploadingXhr.response;
-				const imgObjectURL = URL.createObjectURL(blob);
-				image.src = imgObjectURL;
+			// Создать BLOB-изображениt на основе потока данных
+			const contentType = response.headers.get('content-type');
+			const imgBlob = new Blob(chunks, {type: contentType});
 
-				// Добавить BLOB-URL в список, чтобы потом удалить его
-				blobUrlList.push(imgObjectURL);
-			} else {
-				throw new Error(`Ошибка загрузки изображения: ${url}`);
-			}
-		};
+			// Создать временную BLOB-ссылку и загрузить по ней изображение
+			const imgObjectURL = URL.createObjectURL(imgBlob);
+			image.src = imgObjectURL;
 
-		uploadingXhr.onerror = () => {
+			// Добавить BLOB-ссылку в список, чтобы потом удалить её
+			blobUrlList.push(imgObjectURL);
+		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
-		};
-
-		return uploadingXhr;
+		}
 	};
 
 	/**
@@ -199,35 +223,16 @@ const init = () => {
 	 * @private
 	 */
 	const loadAllImages = async () => {
-		const images = document.querySelectorAll('img[data-src]');
+		const imageInfoList = getImageInfoList();
 
 		// Если изображений нет, то не загружать их
-		if (images.length === 0) {
+		if (imageInfoList.length === 0) {
 			return;
 		}
 
-		/** Инициализированные запросы для получения веса изображений */
-		const gettingSizeFetchList = [];
-
-		for (let i = 0; i < images.length; i++) {
-			const image = images[i];
-
-			// Строка с источником (источниками) изображений
-			const imageSrc = `${image.getAttribute('data-srcset')}, ${image.getAttribute('data-src')}`;
-
-			/** Ссылка на изображение */
-			const url = getBestSource(imageSrc, dpr, isBrowserWebpSupport);
-
-			gettingSizeFetchList.push(initGettingSizeFetch(url));
-
-			// Добавить запрос для загрузки изображения в список,
-			// чтобы отправить его после получения веса всех изображений
-			uploadingXhrList.push(initUploadingXhr(url, image));
-		}
-
-		await Promise.all(gettingSizeFetchList);
-
-		uploadingXhrList.forEach((xhr) => xhr.send());
+		// Запустить по очереди запросы для получения размера изображений и самих изображений
+		imageInfoList.forEach((imageInfo) => fetchGettingSize(imageInfo.url));
+		imageInfoList.forEach((imageInfo) => fetchUploading(imageInfo.url, imageInfo.image));
 	};
 
 	/**
