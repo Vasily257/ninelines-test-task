@@ -15,7 +15,8 @@ main.home
 			ul.home__socials
 				each social in data.home.socials
 					li
-						+svg(social).home__social-icon
+						button(data-social=social)
+							+svg(social).home__social-icon
 
 	section.home__section.home__section--job-education#resume
 		//- Блок «Опыт работы»

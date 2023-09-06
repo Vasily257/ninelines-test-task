@@ -2,9 +2,9 @@
 
 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https' : 'http';
 $host = $protocol . '://' . $_SERVER['HTTP_HOST'];
-$title = '';
-$description = '';
-$image = $host . '/images/';
+$title = 'Summary of Vasily';
+$description = 'Summary of my experience, education and motivation';
+$image = $host . '/images/guy-with-laptop.png';
 
 // Uncomment the code below and fill in the pages if necessary
 // $pages = [

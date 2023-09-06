@@ -4,7 +4,9 @@ prepend vars
 	//-
 
 append vars
-	//-
+	- title = '<?= htmlspecialchars($title) ?>'
+	- description = '<?= htmlspecialchars($description) ?>'
+	- image = '<?= htmlspecialchars($image) ?>'
 
 block content
 	include pug/data
