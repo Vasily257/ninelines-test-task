@@ -159,6 +159,16 @@
 		gap: 20px;
 	}
 
+	&__social-button {
+		display: block;
+		border: none;
+		padding: 0;
+		font: inherit;
+		color: inherit;
+		background-color: transparent;
+		cursor: pointer;
+	}
+
 	&__social-icon {
 		width: 25px;
 		height: 25px;

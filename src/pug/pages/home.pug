@@ -15,7 +15,7 @@ main.home
 			ul.home__socials
 				each social in data.home.socials
 					li
-						button(data-social=social)
+						button(data-social=social).home__social-button
 							+svg(social).home__social-icon
 
 	section.home__section.home__section--job-education#resume
