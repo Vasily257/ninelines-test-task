@@ -368,14 +368,13 @@
 	}
 
 	&__skills {
-		display: flex;
+		display: grid;
+		column-gap: 17px;
 		row-gap: 17px;
-		flex-direction: column;
-		flex-wrap: nowrap;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 		margin-top: 17px;
 
 		@include desktop {
-			display: grid;
 			column-gap: 20px;
 			grid-column: 1 / 5;
 			grid-row: 2 / 3;
