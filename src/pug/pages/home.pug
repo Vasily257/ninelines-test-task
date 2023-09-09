@@ -74,7 +74,7 @@ main.home
 		ul.home__educations
 			each education in data.home.educations
 				li.home__education
-					span.home__education-logo(class=`sprite-${education.logo}`)
+					span(class=`sprite-${education.logo}`)
 					h3.home__education-speciality!= education.speciality
 					each institution in education.institutions
 						p.home__education-institution!= institution
