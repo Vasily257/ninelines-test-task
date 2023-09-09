@@ -63,8 +63,8 @@ $sprites: (
 		normal: (
 			x: 861,
 			y: 730,
-			width: 43,
-			height: 43,
+			width: 40,
+			height: 40,
 			image: "sprites.png",
 			total_width: 1155,
 			total_height: 1010,
@@ -72,8 +72,8 @@ $sprites: (
 		retina: (
 			x: 1722,
 			y: 1460,
-			width: 86,
-			height: 86,
+			width: 80,
+			height: 80,
 			image: "sprites@2x.png",
 			total_width: 2310,
 			total_height: 2020,
@@ -81,7 +81,7 @@ $sprites: (
 	),
 	"edu-3": (
 		normal: (
-			x: 906,
+			x: 903,
 			y: 730,
 			width: 40,
 			height: 40,
@@ -90,7 +90,7 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 1812,
+			x: 1806,
 			y: 1460,
 			width: 80,
 			height: 80,
@@ -101,7 +101,7 @@ $sprites: (
 	),
 	"edu-4": (
 		normal: (
-			x: 948,
+			x: 945,
 			y: 730,
 			width: 40,
 			height: 40,
@@ -110,47 +110,7 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 1896,
-			y: 1460,
-			width: 80,
-			height: 80,
-			image: "sprites@2x.png",
-			total_width: 2310,
-			total_height: 2020,
-		),
-	),
-	"edu-5": (
-		normal: (
-			x: 990,
-			y: 730,
-			width: 40,
-			height: 40,
-			image: "sprites.png",
-			total_width: 1155,
-			total_height: 1010,
-		),
-		retina: (
-			x: 1980,
-			y: 1460,
-			width: 80,
-			height: 80,
-			image: "sprites@2x.png",
-			total_width: 2310,
-			total_height: 2020,
-		),
-	),
-	"edu-6": (
-		normal: (
-			x: 1032,
-			y: 730,
-			width: 40,
-			height: 40,
-			image: "sprites.png",
-			total_width: 1155,
-			total_height: 1010,
-		),
-		retina: (
-			x: 2064,
+			x: 1890,
 			y: 1460,
 			width: 80,
 			height: 80,
@@ -161,7 +121,7 @@ $sprites: (
 	),
 	"job-spec-1": (
 		normal: (
-			x: 1074,
+			x: 987,
 			y: 730,
 			width: 35,
 			height: 17,
@@ -170,7 +130,7 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 2148,
+			x: 1974,
 			y: 1460,
 			width: 70,
 			height: 34,
@@ -181,7 +141,7 @@ $sprites: (
 	),
 	"job-spec-2": (
 		normal: (
-			x: 1111,
+			x: 1024,
 			y: 730,
 			width: 26,
 			height: 17,
@@ -190,7 +150,7 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 2222,
+			x: 2048,
 			y: 1460,
 			width: 52,
 			height: 34,
@@ -201,8 +161,8 @@ $sprites: (
 	),
 	"job-spec-3": (
 		normal: (
-			x: 1074,
-			y: 749,
+			x: 1052,
+			y: 730,
 			width: 25,
 			height: 17,
 			image: "sprites.png",
@@ -210,8 +170,8 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 2148,
-			y: 1498,
+			x: 2104,
+			y: 1460,
 			width: 50,
 			height: 34,
 			image: "sprites@2x.png",
@@ -221,8 +181,8 @@ $sprites: (
 	),
 	"job-spec-4": (
 		normal: (
-			x: 1101,
-			y: 749,
+			x: 1079,
+			y: 730,
 			width: 17,
 			height: 17,
 			image: "sprites.png",
@@ -230,8 +190,8 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 2202,
-			y: 1498,
+			x: 2158,
+			y: 1460,
 			width: 34,
 			height: 34,
 			image: "sprites@2x.png",
@@ -241,8 +201,8 @@ $sprites: (
 	),
 	"job-spec-5": (
 		normal: (
-			x: 1120,
-			y: 749,
+			x: 1098,
+			y: 730,
 			width: 17,
 			height: 17,
 			image: "sprites.png",
@@ -250,8 +210,8 @@ $sprites: (
 			total_height: 1010,
 		),
 		retina: (
-			x: 2240,
-			y: 1498,
+			x: 2196,
+			y: 1460,
 			width: 34,
 			height: 34,
 			image: "sprites@2x.png",
