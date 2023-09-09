@@ -331,15 +331,12 @@
 	&__education {
 		display: flex;
 		row-gap: 8px;
-		flex-basis: 50%;
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
 
 		@include desktop {
 			row-gap: 7px;
-			width: 100%;
-			flex-basis: auto;
 			grid-column: 4 / 5;
 			grid-row: 2 / 3;
 			margin-top: 0;
@@ -356,7 +353,6 @@
 	}
 
 	&__education-institution {
-		max-width: 90%;
 		line-height: 1.39;
 	}
 
