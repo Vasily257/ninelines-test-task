@@ -313,13 +313,13 @@
 		display: grid;
 		column-gap: 20px;
 		row-gap: 20px;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
 		margin-top: 20px;
 
 		@include desktop {
 			display: flex;
 			column-gap: 0;
-			row-gap: 29px;
+			row-gap: 28px;
 			flex-flow: column nowrap;
 			align-items: center;
 			grid-column: 4 / 5;
@@ -337,20 +337,13 @@
 		text-align: center;
 
 		@include desktop {
-			row-gap: 8px;
-			flex-basis: 80%;
+			row-gap: 7px;
+			width: 100%;
+			flex-basis: auto;
 			grid-column: 4 / 5;
 			grid-row: 2 / 3;
 			margin-top: 0;
 			height: fit-content;
-		}
-	}
-
-	&__education-logo {
-		min-height: 36px;
-
-		@include desktop {
-			margin-top: 5px;
 		}
 	}
 
