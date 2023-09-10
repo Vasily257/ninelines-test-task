@@ -97,13 +97,13 @@
 		padding-top: 61px;
 		padding-left: 40px;
 		width: 100%;
-		gap: 41px;
+		row-gap: 41px;
 
 		@include desktop {
 			flex-direction: row;
 			padding-top: 1px;
 			padding-right: 3px;
-			gap: 32px;
+			column-gap: 32px;
 		}
 	}
 
