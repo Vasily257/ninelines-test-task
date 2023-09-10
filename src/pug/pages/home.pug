@@ -53,7 +53,7 @@ main.home
 							}
 						)!= job.duty
 						each project in job.projects
-							a.home__job-project(href=project.link)!= project.name
+							a.home__job-project(href=project.link rel="noreferrer noopener" target="_blank")!= project.name
 
 		//- Декоративное изображение (жонглер)
 		img(
