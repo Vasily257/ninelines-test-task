@@ -5,8 +5,7 @@
 	line-height: 1.2;
 
 	@include desktop {
-		padding: 0;
-		padding-top: 41px;
+		padding: 41px 0;
 	}
 
 	&__section {
