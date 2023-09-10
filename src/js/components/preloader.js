@@ -173,18 +173,15 @@ const init = () => {
 	 * @private
 	 * @param {HTMLElement} image ссылка на элемент изображения
 	 * @param {string} imgObjectURL строка с адресом изобрадения
-	 * @param {boolean} isLastOne является ли изображение последним в массиве
 	 */
-	const createHandleImageLoad = (image, imgObjectURL, isLastOne) => {
+	const createHandleImageLoad = (image, imgObjectURL) => {
 		return function handleImageLoad() {
 			// Удалить временную BLOB-ссылку после загрузки изображения
 			URL.revokeObjectURL(imgObjectURL);
 
-			// Скрыть прелоадер после последнего запроса
-			if (isLastOne) {
-				hidePreloader();
-				enableScroll();
-			}
+			// Скрыть прелоадер
+			hidePreloader();
+			enableScroll();
 
 			// Удалить обработчик после завершения запроса
 			image.removeEventListener('load', handleImageLoad);
@@ -196,9 +193,8 @@ const init = () => {
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
-	 * @param {boolean} isLastOne является ли изображение последним в массиве
 	 */
-	const fetchUploading = async (url, image, isLastOne) => {
+	const fetchUploading = async (url, image) => {
 		try {
 			const response = await fetch(url);
 
@@ -242,7 +238,7 @@ const init = () => {
 			const imgObjectURL = URL.createObjectURL(imgBlob);
 			image.src = imgObjectURL;
 
-			const handleImageLoad = createHandleImageLoad(image, imgObjectURL, isLastOne);
+			const handleImageLoad = createHandleImageLoad(image, imgObjectURL);
 			image.addEventListener('load', handleImageLoad);
 		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
@@ -263,14 +259,8 @@ const init = () => {
 
 		// Запустить запросы для получения размера изображений
 		imageInfoList.forEach((imageInfo) => fetchGettingSize(imageInfo.url));
-
 		// Запустить запросы для загрузки самих изображений
-		for (let i = 0; i < imageInfoList.length; i++) {
-			const imageInfo = imageInfoList[i];
-			const isLastOne = i === imageInfoList.length - 1;
-
-			await fetchUploading(imageInfo.url, imageInfo.image, isLastOne);
-		}
+		imageInfoList.forEach((imageInfo) => fetchUploading(imageInfo.url, imageInfo.image));
 	};
 
 	/**
