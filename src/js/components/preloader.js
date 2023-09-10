@@ -28,6 +28,9 @@ const init = () => {
 	/** Элемент изображения прелоадера */
 	const preloaderImage = preloaderWrapper.querySelector('.preloader__image');
 
+	/** Количество загруженных BLOB-изображений */
+	let loadedBlobImages = 0;
+
 	/** Конечные позиции прелоадера */
 	const preloaderEnd = {
 		x: root.clientWidth + preloaderImage.clientWidth,
@@ -171,17 +174,23 @@ const init = () => {
 	/**
 	 * Создать функцию, которая будет обрабатывать загрузку изображения
 	 * @private
-	 * @param {HTMLElement} image ссылка на элемент изображения
-	 * @param {string} imgObjectURL строка с адресом изобрадения
+	 * @param {HTMLElement} image ссылка на элемент изображения (обязательное)
+	 * @param {string} imgObjectURL строка с адресом изображения (обязательное)
+	 * @param {number} imageCount количество всех изображений (обязательное)
 	 */
-	const createHandleImageLoad = (image, imgObjectURL) => {
+	const createHandleImageLoad = (image, imgObjectURL, imageCount) => {
 		return function handleImageLoad() {
 			// Удалить временную BLOB-ссылку после загрузки изображения
 			URL.revokeObjectURL(imgObjectURL);
 
-			// Скрыть прелоадер
-			hidePreloader();
-			enableScroll();
+			// Увеличить счетчик загруженных изображений
+			loadedBlobImages += 1;
+
+			// Скрыть прелоадер, если последнее изображение загрузилось
+			if (loadedBlobImages === imageCount) {
+				hidePreloader();
+				enableScroll();
+			}
 
 			// Удалить обработчик после завершения запроса
 			image.removeEventListener('load', handleImageLoad);
@@ -193,8 +202,9 @@ const init = () => {
 	 * @private
 	 * @param {string} url путь к изображению (обязательное)
 	 * @param {HTMLImageElement} image элемент изображения (обязательное)
+	 * @param {number} imageCount количество всех изображений (обязательное)
 	 */
-	const fetchUploading = async (url, image) => {
+	const fetchUploading = async (url, image, imageCount) => {
 		try {
 			const response = await fetch(url);
 
@@ -238,7 +248,7 @@ const init = () => {
 			const imgObjectURL = URL.createObjectURL(imgBlob);
 			image.src = imgObjectURL;
 
-			const handleImageLoad = createHandleImageLoad(image, imgObjectURL);
+			const handleImageLoad = createHandleImageLoad(image, imgObjectURL, imageCount);
 			image.addEventListener('load', handleImageLoad);
 		} catch (error) {
 			throw new Error(`Ошибка загрузки изображения: ${url}`);
@@ -259,8 +269,13 @@ const init = () => {
 
 		// Запустить запросы для получения размера изображений
 		imageInfoList.forEach((imageInfo) => fetchGettingSize(imageInfo.url));
+
 		// Запустить запросы для загрузки самих изображений
-		imageInfoList.forEach((imageInfo) => fetchUploading(imageInfo.url, imageInfo.image));
+		for (let i = 0; i < imageInfoList.length; i++) {
+			const imageInfo = imageInfoList[i];
+
+			fetchUploading(imageInfo.url, imageInfo.image, imageInfoList.length);
+		}
 	};
 
 	/**
@@ -274,9 +289,6 @@ const init = () => {
 
 		if (!localStorage.getItem('preloaderStatus')) {
 			addPreloadOfPreloader();
-		} else {
-			hidePreloader();
-			enableScroll();
 		}
 
 		await loadAllImages();
