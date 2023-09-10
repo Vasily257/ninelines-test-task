@@ -6,12 +6,9 @@ main.home
 
 		//- Блок «Контакты»
 		.home__contacts
-			a.home__contact.home__contact--link(href="mailto:kalmykov2570@gmail.com")
-				| kalmykov2570@gmail.com
-			a.home__contact.home__contact--link(href="tel:+79276055309")
-				| +7 (927) 605-53-09
-			span.home__contact
-				| г. Самара
+			a.home__contact.home__contact--link(href=`mailto:${data.home.contacts.mail}`)!= data.home.contacts.mail
+			a.home__contact.home__contact--link(href=`tel:${data.home.contacts.linkTel}`)!= data.home.contacts.displayTel
+			span.home__contact!= data.home.contacts.location
 			ul.home__socials
 				each social in data.home.socials
 					li
