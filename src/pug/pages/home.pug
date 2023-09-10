@@ -21,7 +21,7 @@ main.home
 	section.home__section.home__section--job-education#resume
 		//- Блок «Опыт работы»
 		h2.home__title
-			| Опыт работы
+			| Work experience
 		ul.home__jobs
 			each job, key in data.home.jobs
 				//- Разметка элемента job
@@ -33,8 +33,7 @@ main.home
 
 					.home__job-company-box(
 						class={
-							'home__job-company-box--block': key === 0,
-							'home__job-company-box--grid': key === 1 || key === 4
+							'home__job-company-box--block': key === 2
 						}
 					)
 						if job.companyLogo
@@ -57,7 +56,7 @@ main.home
 							}
 						)!= job.duty
 						each project in job.projects
-							p.home__job-project!= project
+							a.home__job-project(href=project.link)!= project.name
 
 		//- Декоративное изображение (жонглер)
 		img(
