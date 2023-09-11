@@ -1,0 +1,17 @@
+.share {
+	position: relative;
+	display: none;
+	padding: 50px;
+	width: 968px;
+	height: 504px;
+	background-color: $color-background;
+
+	&__image {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		display: block;
+		width: 400px;
+		height: 400px;
+	}
+}

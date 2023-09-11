@@ -7,6 +7,7 @@ import {actualYear} from './modules/actualYear';
 import header from './components/header';
 import preloader from './components/preloader';
 import pageScroll from './components/page-scroll';
+import share from './components/share';
 import lazyLoading from './modules/lazyLoading';
 import scrollToAnchor from './modules/scrollToAnchor';
 import backToTop from './modules/backToTop';
@@ -20,5 +21,6 @@ backToTop.init();
 header.init();
 preloader.init();
 pageScroll.init();
+share.init();
 
 lazyLoading.init();

@@ -1,8 +1,8 @@
 main.home
 	section.home__section.home__section--about#about
 		//-  Блок «О себе»
-		h1.home__title.home__title--about!= data.home.about.name
-		p.home__about-bio!= data.home.about.bio
+		h1.home__title.home__title--about#sharing-title!= data.home.about.name
+		p.home__about-bio#sharing-description!= data.home.about.bio
 
 		//- Блок «Контакты»
 		.home__contacts

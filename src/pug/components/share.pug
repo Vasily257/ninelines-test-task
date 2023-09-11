@@ -1,0 +1,9 @@
+.share
+	+lazyPicture({
+		src: `${baseDir}images/guy-with-laptop.png`,
+		alt: 'A guy with alaptop',
+	}, [
+		{
+			srcset: `${baseDir}images/guy-with-laptop.webp, ${baseDir}images/guy-with-laptop@2x.webp 2x, ${baseDir}images/guy-with-laptop.png 2x`,
+		}
+	]).share__image
