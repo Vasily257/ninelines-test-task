@@ -138,8 +138,8 @@ const init = () => {
 	/**
 	 * Обновить значения байтов
 	 * @private
-	 * @param {string} url URL изображение
-	 * @param {number} value текущее значение загруженных байт изображения
+	 * @param {string} url URL изображение (обязательное)
+	 * @param {number} value текущее значение загруженных байт изображения (обязательное)
 	 */
 	const updateLoadedBytes = (url, value) => {
 		// Добавить URL изображения в объект, если это первое чтение потока
@@ -158,7 +158,7 @@ const init = () => {
 	/**
 	 * Переместить прелоадер
 	 * @private
-	 * @param {number} progress коэффициент перемещения прелоадера
+	 * @param {number} progress коэффициент перемещения прелоадера (обязательное)
 	 */
 	const updatePreloaderPosition = (progress) => {
 		const currentX = preloaderEnd.x * progress;
@@ -248,6 +248,7 @@ const init = () => {
 			const imgObjectURL = URL.createObjectURL(imgBlob);
 			image.src = imgObjectURL;
 
+			// Обработать загрузку BLOB-изображений
 			const handleImageLoad = createHandleImageLoad(image, imgObjectURL, imageCount);
 			image.addEventListener('load', handleImageLoad);
 		} catch (error) {

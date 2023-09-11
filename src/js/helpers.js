@@ -202,8 +202,8 @@ function resize() {
 
 /**
  * Уменьшить частоту выполнения функции
- * @param {Function} throttledFunction функция, которую нужно реже вызывать
- * @param {number} timeout интервал вызовов функции в мс
+ * @param {Function} throttledFunction функция, которую нужно реже вызывать (обязательное)
+ * @param {number} timeout интервал вызовов функции в мс (обязательное)
  */
 export function throttle(throttledFunction, timeout) {
 	let timer = null;

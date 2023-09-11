@@ -15,7 +15,7 @@ const init = () => {
 	/**
 	 * Обновить цвет границы индикатора
 	 * @private
-	 * @param {number} percentages прогресс скролла в процентах
+	 * @param {number} percentages прогресс скролла в процентах (обязательное)
 	 */
 	const updateIndicatorBorder = (percentages) => {
 		const startColor = '#d2233c';
@@ -28,7 +28,7 @@ const init = () => {
 	/**
 	 * Обновить значение индикатора
 	 * @private
-	 * @param {number} percentages прогресс скролла в процентах
+	 * @param {number} percentages прогресс скролла в процентах (обязательное)
 	 */
 	const updateIndicatorValue = (percentages) => {
 		if (percentages === 100) {
@@ -78,7 +78,7 @@ const init = () => {
 	// Обновить начальное значение индикатора
 	updateScrollIndicator();
 
-	// Добавить глобальные слушатели событий
+	// Добавить глобальный слушатель событий
 	document.addEventListener('scroll', handleScroll);
 };
 
