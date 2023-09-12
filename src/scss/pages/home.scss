@@ -311,7 +311,7 @@
 		column-gap: 20px;
 		row-gap: 20px;
 		grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-		margin-top: 20px;
+		margin-top: 14px;
 
 		@include desktop {
 			display: flex;
@@ -327,13 +327,12 @@
 
 	&__education {
 		display: flex;
-		row-gap: 8px;
+		row-gap: 7px;
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
 
 		@include desktop {
-			row-gap: 7px;
 			grid-column: 4 / 5;
 			grid-row: 2 / 3;
 			margin-top: 0;
