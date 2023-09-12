@@ -16,20 +16,8 @@
 		}
 
 		&--about {
-			position: relative;
-
 			@include desktop {
 				row-gap: 11px;
-			}
-
-			&::after {
-				content: "";
-				position: absolute;
-				left: 50%;
-				bottom: -65px;
-				transform: translate(-50%, 0);
-
-				@include sprite("wave-mobile-up");
 			}
 		}
 
@@ -49,16 +37,6 @@
 			@include desktop {
 				row-gap: 10px;
 				margin-top: 201px;
-			}
-
-			&::before {
-				content: "";
-				position: absolute;
-				left: 50%;
-				top: -50px;
-				transform: translate(-50%, 0);
-
-				@include sprite("wave-mobile-bottom");
 			}
 		}
 	}
