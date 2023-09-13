@@ -78,3 +78,14 @@
 	hyphens: auto;
 }
 /* stylelint-enable */
+
+.fade-hidden {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.fade-shown {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity $duration-normal $easing-in, transform $duration-normal $easing-in;
+}

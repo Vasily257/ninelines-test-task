@@ -17,12 +17,12 @@ main.home
 
 	section.home__section.home__section--job-education#resume
 		//- Блок «Опыт работы»
-		h2.home__title
+		h2.home__title.fade-hidden
 			| Work experience
 		ul.home__jobs
 			each job, key in data.home.jobs
 				//- Разметка элемента job
-				li.home__job
+				li.home__job.fade-hidden
 					span.home__job-time!= job.time
 					.home__job-position-box
 						h3.home__job-position!= job.position
@@ -62,14 +62,14 @@ main.home
 			alt="A painted guy who juggles coins"
 			width="300"
 			height="465"
-		).home__decor-image.home__decor-image--juggler
+		).home__decor-image.home__decor-image--juggler.fade-hidden
 
 		//-  Блок «Образование»
-		h2.home__title.home__title--education
+		h2.home__title.home__title--education.fade-hidden
 			| Education
 		ul.home__educations
 			each education in data.home.educations
-				li.home__education
+				li.home__education.fade-hidden
 					span(class=`sprite-${education.logo}`)
 					h3.home__education-speciality!= education.speciality
 					each institution in education.institutions
@@ -77,9 +77,9 @@ main.home
 
 	section.home__section.home__section--skills#skills
 		//-  Блок «Навыки»
-		h2.home__title.home__title--skills
+		h2.home__title.home__title--skills.fade-hidden
 			| Skills
-		ul.home__skills
+		ul.home__skills.fade-hidden
 			each skill in data.home.skills
 				li.home__skill
 					h3.home__skill-group!= skill.group
@@ -92,4 +92,4 @@ main.home
 		alt="Fingers folded in the shape of a heart"
 		width="350"
 		height="230"
-	).home__decor-image.home__decor-image--fingers
+	).home__decor-image.home__decor-image--fingers.fade-hidden
