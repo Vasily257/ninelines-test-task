@@ -8,9 +8,9 @@ const init = () => {
 	/** Корневой элемент (html) */
 	const root = document.documentElement;
 	/** Элемент индикатора скролла */
-	const pageScrollIndicator = root.querySelector('.page-scroll');
+	const scrollIndicator = root.querySelector('.scroll-indicator');
 	/** Элемент стрелки внутри индикатора */
-	const arrow = pageScrollIndicator.querySelector('.page-scroll__arrow');
+	const arrow = scrollIndicator.querySelector('.scroll-indicator__arrow');
 
 	/**
 	 * Обновить цвет границы индикатора
@@ -22,7 +22,7 @@ const init = () => {
 		const endColor = '#282a33';
 		const conicGradientValue = `${startColor} 0 ${percentages}%, ${endColor} ${percentages}% 100%`;
 
-		pageScrollIndicator.style.backgroundImage = `conic-gradient(${conicGradientValue})`;
+		scrollIndicator.style.backgroundImage = `conic-gradient(${conicGradientValue})`;
 	};
 
 	/**
@@ -32,20 +32,20 @@ const init = () => {
 	 */
 	const updateIndicatorValue = (percentages) => {
 		if (percentages === 100) {
-			pageScrollIndicator.setAttribute('data-percentages', '');
+			scrollIndicator.setAttribute('data-percentages', '');
 
-			pageScrollIndicator.classList.add('js-back-to-top');
-			pageScrollIndicator.classList.add('page-scroll--cursor-pointer');
-			arrow.classList.add('page-scroll__arrow--shown');
+			scrollIndicator.classList.add('js-back-to-top');
+			scrollIndicator.classList.add('scroll-indicator--cursor-pointer');
+			arrow.classList.add('scroll-indicator__arrow--shown');
 		} else {
-			if (arrow.classList.contains('page-scroll__arrow--shown')) {
-				arrow.classList.remove('page-scroll__arrow--shown');
+			if (arrow.classList.contains('scroll-indicator__arrow--shown')) {
+				arrow.classList.remove('scroll-indicator__arrow--shown');
 
-				pageScrollIndicator.classList.remove('page-scroll--cursor-pointer');
-				pageScrollIndicator.classList.remove('js-back-to-top');
+				scrollIndicator.classList.remove('scroll-indicator--cursor-pointer');
+				scrollIndicator.classList.remove('js-back-to-top');
 			}
 
-			pageScrollIndicator.setAttribute('data-percentages', `${percentages} %`);
+			scrollIndicator.setAttribute('data-percentages', `${percentages} %`);
 		}
 	};
 
