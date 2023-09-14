@@ -1,11 +1,16 @@
+import html2canvas from 'html2canvas';
+
 /**
  * Инициализировать компонент
  * @public
  */
 const init = async () => {
+	const titleElement = document.getElementById('sharing-title');
+	const descriptionElement = document.getElementById('sharing-description');
+
 	try {
-		const titleCanvas = await window.html2canvas(document.getElementById('sharing-title'));
-		const descriptionCanvas = await window.html2canvas(document.getElementById('sharing-description'));
+		const titleCanvas = await html2canvas(titleElement);
+		const descriptionCanvas = await html2canvas(descriptionElement);
 
 		const canvasContainer = document.querySelector('.share');
 
