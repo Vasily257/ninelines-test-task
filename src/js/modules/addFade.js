@@ -26,6 +26,9 @@ const init = () => {
 			shownElements += 1;
 
 			element.classList.add('fade-shown');
+
+			// Повторно запустить анимацию, если за один скролл
+			// появилось больше одного элемента во вьюпорте
 			addAnimation(scrollProgress);
 		}
 	};
@@ -46,7 +49,7 @@ const init = () => {
 	// Огранить функцию для обработки скролла
 	throttledHandleScroll = throttle(handleScroll, 150);
 
-	// Запустить анимацию для элементов, которые уже есть во вьюпорте
+	// Впервые запустить анимацию для элементов, которые уже во вьюпорте
 	addAnimation(window.innerHeight);
 
 	// Добавить глобальный слушатель событий
