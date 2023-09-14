@@ -146,6 +146,17 @@ const init = () => {
 	};
 
 	/**
+	 * Запустить анимацию перемещения прелоадера
+	 * @private
+	 * @param {number} progress коэффициент перемещения прелоадера (обязательное)
+	 */
+	const startPreloaderAnimation = (progress) => {
+		if (progress <= 1) {
+			requestAnimationFrame(() => updatePreloaderPosition(progress));
+		}
+	};
+
+	/**
 	 * Создать функцию, которая будет обрабатывать загрузку изображения
 	 * @private
 	 * @param {HTMLElement} image ссылка на элемент изображения (обязательное)
@@ -209,12 +220,10 @@ const init = () => {
 				// Получить новое значение загруженных байт, чтобы обновить положение прелоадера
 				imagesBytes.loaded += value.length;
 
-				// Обновить положение прелоадера
+				// Сместить прелоадер
 				if (!localStorage.getItem('preloaderStatus')) {
-					updatePreloaderPosition(imagesBytes.loaded / imagesBytes.total);
+					startPreloaderAnimation(imagesBytes.loaded / imagesBytes.total);
 				}
-				// Не используется requestAnimationFrame, так как при низкой скорости интернета
-				// прелодаер моментально переходит в правое верхнее положение
 			}
 
 			// Создать BLOB-изображениt на основе потока данных
