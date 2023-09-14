@@ -165,10 +165,6 @@ const init = () => {
 		const currentY = preloaderEnd.y * progress * -1;
 
 		preloaderImage.style.transform = `translate(${currentX}px, ${currentY}px)`;
-
-		if (progress === 1) {
-			localStorage.setItem('preloaderStatus', 'shown');
-		}
 	};
 
 	/**
@@ -188,6 +184,8 @@ const init = () => {
 
 			// Скрыть прелоадер, если последнее изображение загрузилось
 			if (loadedBlobImages === imageCount) {
+				localStorage.setItem('preloaderStatus', 'shown');
+
 				hidePreloader();
 				enableScroll();
 			}
