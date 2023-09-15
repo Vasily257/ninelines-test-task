@@ -1,9 +1,11 @@
-//- @demo +lazyImage({
-		src: `${baseDir}images/path.type`,
-		srcset: `${baseDir}images/path@2x.type 2x`,
-		alt: '',
-		appear: false,
-	}).class(attrs)
+//- @demo +lazyImage(
+		{
+			src: `${baseDir}images/path.type`,
+			srcset: `${baseDir}images/path@2x.type 2x`,
+			alt: '',
+			appear: false,
+		}
+	).class(attrs)
 mixin lazyImage(data)
 	img.image.lozad.js-lazy(
 		draggable="false"

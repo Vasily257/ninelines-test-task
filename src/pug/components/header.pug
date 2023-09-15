@@ -1,15 +1,15 @@
 header.header
 	a.header__logo-link(href=data.header.links.logo)
-		img(
+		img.header__logo-image(
 			data-src=`${baseDir}images/logo.jpg`
 			data-srcset=`${baseDir}images/logo.webp, ${baseDir}images/logo@2x.webp 2x, ${baseDir}images/logo@2x.jpg 2x`
 			data-html2canvas-ignore
 			alt="Логотип сайта"
 			width="80"
 			height="80"
-		).header__logo-image
+		)
 
-	button.header__menu-button.btn.js-burger(type="button", aria-label="Open a menu")
+	button.header__menu-button.btn.js-burger(type="button" aria-label="Open a menu")
 		span.header__menu-button-line.header__menu-button-line--first
 		span.header__menu-button-line.header__menu-button-line--second
 		span.header__menu-button-line.header__menu-button-line--third
@@ -19,12 +19,11 @@ header.header
 			each object, key in data.header.menu
 				li.header__menu-item
 					a.header__menu-link.js-to-anchor(href=object.url data-link=key)!= object.name
-		img(
+		img.header__menu-image(
 			data-src=`${baseDir}images/processing.png`
 			data-srcset=`${baseDir}images/processing.webp, ${baseDir}images/processing@2x.webp 2x, ${baseDir}images/processing@2x.png 2x`
 			data-html2canvas-ignore
 			alt="Hourglass"
 			width="230"
 			height="200"
-		).header__menu-image
-
+		)

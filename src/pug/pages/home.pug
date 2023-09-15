@@ -29,9 +29,7 @@ main.home
 						span(class=`sprite-${job.specialityLogo}`)
 
 					.home__job-company-box(
-						class={
-							'home__job-company-box--block': key === 2
-						}
+						class={'home__job-company-box--block': key === 2}
 					)
 						if job.companyLogo
 							img.home__job-company-logo(
@@ -52,14 +50,14 @@ main.home
 							a.home__job-project(href=project.link rel="noreferrer noopener" target="_blank")!= project.name
 
 		//- Декоративное изображение (жонглер)
-		img(
+		img.home__decor-image.home__decor-image--juggler.fade-hidden(
 			data-src=`${baseDir}images/juggling-guy.png`
 			data-srcset=`${baseDir}images/juggling-guy.webp, ${baseDir}images/juggling-guy@2x.webp 2x, ${baseDir}images/juggling-guy@2x.png 2x`
 			data-html2canvas-ignore
 			alt="A painted guy who juggles coins"
 			width="300"
 			height="465"
-		).home__decor-image.home__decor-image--juggler.fade-hidden
+		)
 
 		//-  Блок «Образование»
 		h2.home__title.home__title--education.fade-hidden
@@ -83,11 +81,11 @@ main.home
 					p.home__skill-values!= skill.values
 
 	//- Декоративное изображение (сердечко из пальцев)
-	img(
+	img.home__decor-image.home__decor-image--fingers.fade-hidden(
 		data-src=`${baseDir}images/fingers-heart.png`
 		data-srcset=`${baseDir}images/fingers-heart.webp, ${baseDir}images/fingers-heart@2x.webp 2x, ${baseDir}images/fingers-heart@2x.png 2x`
 		data-html2canvas-ignore
 		alt="Fingers folded in the shape of a heart"
 		width="350"
 		height="230"
-	).home__decor-image.home__decor-image--fingers.fade-hidden
+	)
