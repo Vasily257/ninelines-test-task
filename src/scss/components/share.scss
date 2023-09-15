@@ -1,8 +1,8 @@
 .share {
 	position: relative;
 
-	// display: none;
-	display: flex;
+	// Поменять на flex, чтобы отобразить компонент
+	display: none;
 	flex-flow: row nowrap;
 	padding: 50px;
 	width: fit-content;
