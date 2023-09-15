@@ -9,17 +9,17 @@
 	opacity: 1;
 	visibility: visible;
 
-	&--hidden {
-		opacity: 0;
-		visibility: hidden;
-		transition: visibility $duration-normal linear 0.3s, opacity $duration-normal linear 0.3s;
-	}
-
 	&__image {
 		position: absolute;
 		right: 100%;
 		top: 100%;
 		transform: translate(0, 0);
 		transition: transform $duration-normal;
+	}
+
+	&--hidden {
+		opacity: 0;
+		visibility: hidden;
+		transition: visibility $duration-normal linear 0.3s, opacity $duration-normal linear 0.3s;
 	}
 }

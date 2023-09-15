@@ -12,15 +12,23 @@
 	background-image: conic-gradient(#d2233c 0 0, $color-primary 0 100%);
 	cursor: default;
 
-	@include desktop {
-		right: 25px;
-		bottom: 90px;
-		width: 48px;
-		height: 48px;
-	}
+	&::before {
+		content: "";
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		z-index: 1;
+		display: block;
+		border-radius: 50%;
+		width: 28px;
+		height: 28px;
+		background-color: $color-white;
+		transform: translate(-50%, -50%);
 
-	&--cursor-pointer {
-		cursor: pointer;
+		@include desktop {
+			width: 46px;
+			height: 46px;
+		}
 	}
 
 	&::after {
@@ -41,25 +49,6 @@
 		}
 	}
 
-	&::before {
-		content: "";
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		z-index: 1;
-		display: block;
-		border-radius: 50%;
-		width: 28px;
-		height: 28px;
-		background-color: $color-white;
-		transform: translate(-50%, -50%);
-
-		@include desktop {
-			width: 46px;
-			height: 46px;
-		}
-	}
-
 	&__arrow {
 		position: relative;
 		z-index: 2;
@@ -73,5 +62,16 @@
 		@include desktop {
 			width: 20px;
 		}
+	}
+
+	&--cursor-pointer {
+		cursor: pointer;
+	}
+
+	@include desktop {
+		right: 25px;
+		bottom: 90px;
+		width: 48px;
+		height: 48px;
 	}
 }

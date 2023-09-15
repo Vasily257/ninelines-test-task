@@ -1,5 +1,6 @@
 .share {
 	position: relative;
+
 	// display: none;
 	display: flex;
 	flex-flow: row nowrap;
@@ -9,9 +10,9 @@
 
 	&__text-box {
 		display: flex;
-		row-gap: 20px;
 		flex-flow: column nowrap;
 		width: fit-content;
+		row-gap: 20px;
 
 		@include desktop {
 			row-gap: 0;
