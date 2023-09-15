@@ -52,6 +52,7 @@
 		}
 
 		&--about {
+			max-width: 560px;
 			font-size: 28px;
 			line-height: 1.4;
 			background-color: $color-background;
@@ -91,6 +92,7 @@
 
 	&__about-bio {
 		margin-top: 21px;
+		max-width: 560px;
 		line-height: 1.42;
 		background-color: $color-background;
 
