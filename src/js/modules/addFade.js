@@ -1,59 +1,31 @@
-import {throttle} from '../helpers';
-
 /**
  * Добавить анимацию «Появление со смещением»
  * @public
  */
 const init = () => {
-	/** Корневой элемент (html) */
-	const root = document.documentElement;
-	/** Элементы с анимацией fade */
-	const fadeElements = Array.from(root.querySelectorAll('.fade-hidden')) || [];
-	/** Количество показанных элементов */
-	let shownElements = 0;
-	// Функцию для обработки скролла (ограниченная)
-	let throttledHandleScroll = null;
-
-	/**
-	 * Добавить анимацию
-	 * @private
-	 * @param {number} scrollProgress текущее положение скролла в пикселях (обязательное)
-	 */
-	const addAnimation = (scrollProgress) => {
-		const element = fadeElements[shownElements];
-
-		if (element && element?.offsetTop <= scrollProgress) {
-			shownElements += 1;
-
-			element.classList.add('fade-shown');
-
-			// Повторно запустить анимацию, если за один скролл
-			// появилось больше одного элемента во вьюпорте
-			addAnimation(scrollProgress);
-		}
+	/** Элементы с анимацией «Появление со смещением» */
+	const fadeElements = document.querySelectorAll('.fade-hidden');
+	/** Настройки пересечения элементов с вьюпортом */
+	const options = {
+		threshold: 0,
 	};
 
-	/**
-	 * Обработать скролл страницы
-	 * @private
-	 */
-	const handleScroll = () => {
-		addAnimation(root.scrollTop + root.clientHeight);
+	/** Коллбэк, чтобы добавить анимацию «Появление со смещением» */
+	const addAnimation = (entries, observer) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('fade-shown');
 
-		// Убрать глобальный слушатель событий
-		if (shownElements === fadeElements.length) {
-			document.addEventListener('scroll', throttledHandleScroll);
-		}
+				observer.unobserve(entry.target);
+			}
+		});
 	};
 
-	// Огранить функцию для обработки скролла
-	throttledHandleScroll = throttle(handleScroll, 150);
+	/** Наблюдать за пересечением с вьюпортом */
+	const observer = new IntersectionObserver(addAnimation, options);
 
-	// Впервые запустить анимацию для элементов, которые уже во вьюпорте
-	addAnimation(window.innerHeight);
-
-	// Добавить глобальный слушатель событий
-	document.addEventListener('scroll', throttledHandleScroll);
+	// Запустить наблюдение за пересечением
+	fadeElements.forEach((element) => observer.observe(element));
 };
 
 export default {
