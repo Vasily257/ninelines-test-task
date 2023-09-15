@@ -47,12 +47,7 @@ main.home
 						span.home__job-company-desc!= job.companyDesc
 
 					.home__job-duty-box
-						p.home__job-duty(
-							class={
-								'home__job-duty--lineheight-one-two': key === 0,
-								'home__job-duty--lineheight-one-four': key === 1
-							}
-						)!= job.duty
+						p.home__job-duty!= job.duty
 						each project in job.projects
 							a.home__job-project(href=project.link rel="noreferrer noopener" target="_blank")!= project.name
 
