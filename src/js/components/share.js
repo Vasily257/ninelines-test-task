@@ -5,6 +5,9 @@ import html2canvas from 'html2canvas';
  * @public
  */
 const init = async () => {
+	const shareElement = document.querySelector('.share');
+	const textBox = shareElement.querySelector('.share__text-box');
+
 	const titleElement = document.getElementById('sharing-title');
 	const descriptionElement = document.getElementById('sharing-description');
 
@@ -12,10 +15,8 @@ const init = async () => {
 		const titleCanvas = await html2canvas(titleElement);
 		const descriptionCanvas = await html2canvas(descriptionElement);
 
-		const canvasContainer = document.querySelector('.share');
-
-		canvasContainer.appendChild(titleCanvas);
-		canvasContainer.appendChild(descriptionCanvas);
+		textBox.prepend(descriptionCanvas);
+		textBox.prepend(titleCanvas);
 	} catch (error) {
 		throw new Error(`Не удалось динамически получить данные для шеринга: ${error}`);
 	}

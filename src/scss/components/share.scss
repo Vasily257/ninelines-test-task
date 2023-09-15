@@ -1,17 +1,24 @@
 .share {
 	position: relative;
-	display: none;
+	// display: none;
+	display: flex;
+	flex-flow: row nowrap;
 	padding: 50px;
-	width: 968px;
-	height: 504px;
+	width: fit-content;
 	background-color: $color-background;
 
+	&__text-box {
+		display: flex;
+		row-gap: 20px;
+		flex-flow: column nowrap;
+		width: fit-content;
+
+		@include desktop {
+			row-gap: 0;
+		}
+	}
+
 	&__image {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		display: block;
-		width: 400px;
-		height: 400px;
+		margin-top: 50px;
 	}
 }
