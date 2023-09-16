@@ -36,11 +36,14 @@ const init = () => {
 
 			scrollIndicator.classList.add('js-back-to-top');
 			scrollIndicator.classList.add('scroll-indicator--cursor-pointer');
+			scrollIndicator.setAttribute('tabindex', '0');
+
 			arrow.classList.add('scroll-indicator__arrow--shown');
 		} else {
 			if (arrow.classList.contains('scroll-indicator__arrow--shown')) {
 				arrow.classList.remove('scroll-indicator__arrow--shown');
 
+				scrollIndicator.setAttribute('tabindex', '-1');
 				scrollIndicator.classList.remove('scroll-indicator--cursor-pointer');
 				scrollIndicator.classList.remove('js-back-to-top');
 			}

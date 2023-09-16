@@ -54,6 +54,7 @@
 		z-index: 2;
 		display: none;
 		width: 12px;
+		fill: #282a33;
 
 		&--shown {
 			display: block;
@@ -61,6 +62,12 @@
 
 		@include desktop {
 			width: 20px;
+		}
+	}
+
+	&:focus-visible {
+		.scroll-indicator__arrow {
+			fill: $color-focus;
 		}
 	}
 
