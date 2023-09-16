@@ -149,6 +149,12 @@
 		background-color: transparent;
 		cursor: pointer;
 
+		&:hover {
+			.home__social-icon {
+				fill: $color-secondary;
+			}
+		}
+
 		&:focus-visible {
 			.home__social-icon {
 				fill: $color-focus;
