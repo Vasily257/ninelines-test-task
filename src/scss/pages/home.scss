@@ -254,6 +254,10 @@
 		width: fit-content;
 		box-sizing: border-box;
 		color: $color-link;
+
+		&:focus-visible {
+			border-bottom: 1px solid $color-focus;
+		}
 	}
 
 	&__decor-image {
