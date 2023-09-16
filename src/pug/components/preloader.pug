@@ -1,8 +1,10 @@
 .preloader
-	img.preloader__image(
-		src=`${baseDir}images/guy-on-rocket.png`
-		srcset=`${baseDir}images/guy-on-rocket.webp, ${baseDir}images/guy-on-rocket@2x.webp 2x, ${baseDir}images/guy-on-rocket@2x.png 2x`
-		alt="Preloader"
-		width="591"
-		height="591"
-	)
+	picture
+		source(srcset=`${baseDir}images/guy-on-rocket.webp, ${baseDir}images/guy-on-rocket@2x.webp 2x`)
+		source(srcset=`${baseDir}images/guy-on-rocket.png, ${baseDir}images/guy-on-rocket@2x.png 2x`)
+		img.preloader__image(
+			src=`${baseDir}images/guy-on-rocket.png`
+			alt="Preloader"
+			width="591"
+			height="591"
+		)
