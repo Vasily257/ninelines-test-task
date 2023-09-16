@@ -13,6 +13,8 @@
 		position: absolute;
 		right: 100%;
 		top: 100%;
+		max-width: 591px;
+		max-height: 591px;
 		transform: translate(0, 0);
 		transition: transform $duration-normal;
 	}
