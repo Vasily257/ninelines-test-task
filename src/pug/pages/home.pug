@@ -26,7 +26,7 @@ main.home
 					span.home__job-time!= job.time
 					.home__job-position-box
 						h3.home__job-position!= job.position
-						span(class=`sprite-${job.specialityLogo}`)
+						span.home__job-logo(class=`sprite-${job.specialityLogo}`)
 
 					.home__job-company-box(
 						class={'home__job-company-box--block': key === 2}
