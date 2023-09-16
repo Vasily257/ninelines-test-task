@@ -11,6 +11,13 @@
 		display: block;
 		width: 80px;
 		height: 80px;
+		border-radius: 50%;
+		transition: none;
+
+		&:focus-visible {
+			outline: $color-focus solid 2px;
+			outline-offset: 2px;
+		}
 
 		@include desktop {
 			width: 150px;
