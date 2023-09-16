@@ -124,7 +124,7 @@
 
 		&--link {
 			&:focus-visible {
-				color: $color-secondary;
+				color: $color-focus;
 			}
 
 			@include hover {
