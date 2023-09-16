@@ -1,13 +1,11 @@
 extends pug/base
 
 prepend vars
-	//-
-
-append vars
 	- title = '<?= htmlspecialchars($title) ?>'
 	- description = '<?= htmlspecialchars($description) ?>'
 	- image = '<?= htmlspecialchars($image) ?>'
 
+append vars
 	- html.attrs.lang = 'en'
 
 	- link.icon16x16 = `${baseDir}images/favicon16x16.ico`
