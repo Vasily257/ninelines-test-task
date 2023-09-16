@@ -65,7 +65,8 @@
 		}
 	}
 
-	&:focus-visible {
+	&:focus-visible,
+	&:hover {
 		.scroll-indicator__arrow {
 			fill: $color-hover;
 		}
