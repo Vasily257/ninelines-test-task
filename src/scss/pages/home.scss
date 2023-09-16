@@ -261,7 +261,13 @@
 		box-sizing: border-box;
 		color: $color-link;
 
+		&:hover {
+			color: $color-hover;
+			border-bottom: 1px solid $color-hover;
+		}
+
 		&:focus-visible {
+			color: $color-hover;
 			border-bottom: 1px solid $color-hover;
 		}
 	}
