@@ -87,19 +87,19 @@
 		width: 26px;
 		height: 18px;
 
-		&:focus-visible,
-		&:hover {
-			.header__menu-button-line {
-				background-color: $color-hover;
-			}
-		}
-
 		&-line {
 			display: block;
 			width: 26px;
 			height: 2px;
 			background-color: $color-primary;
 			transition: transform $duration-normal, opacity $duration-normal / 2, background-color $duration-normal;
+		}
+
+		&:focus-visible,
+		&:hover {
+			.header__menu-button-line {
+				background-color: $color-hover;
+			}
 		}
 
 		@include active {
