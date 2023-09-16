@@ -124,11 +124,11 @@
 
 		&--link {
 			&:focus-visible {
-				color: $color-focus;
+				color: $color-hover;
 			}
 
 			@include hover {
-				color: $color-secondary;
+				color: $color-hover;
 			}
 		}
 	}
@@ -151,13 +151,13 @@
 
 		&:hover {
 			.home__social-icon {
-				fill: $color-secondary;
+				fill: $color-hover;
 			}
 		}
 
 		&:focus-visible {
 			.home__social-icon {
-				fill: $color-focus;
+				fill: $color-hover;
 			}
 		}
 	}
@@ -262,7 +262,7 @@
 		color: $color-link;
 
 		&:focus-visible {
-			border-bottom: 1px solid $color-focus;
+			border-bottom: 1px solid $color-hover;
 		}
 	}
 

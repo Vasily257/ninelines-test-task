@@ -24,7 +24,7 @@
 			border-radius: 50%;
 			width: 100%;
 			height: 100%;
-			background-color: $color-focus;
+			background-color: $color-hover;
 			opacity: 0;
 			transition: opacity $duration-normal;
 		}
@@ -168,11 +168,11 @@
 		color: $color-primary;
 
 		&:focus-visible {
-			color: $color-focus;
+			color: $color-hover;
 		}
 
 		@include hover {
-			color: $color-secondary;
+			color: $color-hover;
 		}
 	}
 
