@@ -9,9 +9,9 @@
 
 	&__logo-link {
 		display: block;
+		border-radius: 50%;
 		width: 80px;
 		height: 80px;
-		border-radius: 50%;
 		transition: none;
 
 		&:focus-visible {
