@@ -149,13 +149,8 @@
 		background-color: transparent;
 		cursor: pointer;
 
+		&:focus-visible,
 		&:hover {
-			.home__social-icon {
-				fill: $color-hover;
-			}
-		}
-
-		&:focus-visible {
 			.home__social-icon {
 				fill: $color-hover;
 			}
@@ -261,14 +256,10 @@
 		box-sizing: border-box;
 		color: $color-link;
 
+		&:focus-visible,
 		&:hover {
-			color: $color-hover;
 			border-bottom: 1px solid $color-hover;
-		}
-
-		&:focus-visible {
 			color: $color-hover;
-			border-bottom: 1px solid $color-hover;
 		}
 	}
 
