@@ -1,6 +1,7 @@
 @import "base.scss";
 
 html {
+	overflow: visible;
 	font-family: $font-family-sf-pro-display;
 	color: $color-primary;
 	background-color: $color-background;
