@@ -262,14 +262,13 @@
 	}
 
 	&__job-project {
-		border-bottom: 1px solid $color-link;
 		width: fit-content;
-		box-sizing: border-box;
+		text-decoration: underline;
+		text-underline-position: under;
 		color: $color-link;
 
 		&:focus-visible,
 		&:hover {
-			border-bottom: 1px solid $color-hover;
 			color: $color-hover;
 		}
 	}
