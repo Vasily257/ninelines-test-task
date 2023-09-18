@@ -3,6 +3,7 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 1.2;
+	word-break: break-word;
 
 	&__section {
 		&--about {
@@ -43,7 +44,6 @@
 		padding: 0;
 		font-weight: 700;
 		font-size: 20px;
-		word-break: break-word;
 
 		&--about {
 			max-width: 560px;
@@ -110,7 +110,6 @@
 		display: flex;
 		flex-flow: column nowrap;
 		margin-top: 21px;
-		word-break: break-word;
 		row-gap: 10px;
 
 		@include desktop {
@@ -184,7 +183,6 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		word-break: break-word;
 		row-gap: 7.5px;
 
 		@include desktop {
