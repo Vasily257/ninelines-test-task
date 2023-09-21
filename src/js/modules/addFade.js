@@ -24,8 +24,13 @@ const init = () => {
 	/** Наблюдать за пересечением с вьюпортом */
 	const observer = new IntersectionObserver(addAnimation, options);
 
-	// Запустить наблюдение за пересечением
-	fadeElements.forEach((element) => observer.observe(element));
+	if (localStorage.getItem('preloaderStatus')) {
+		// Вручную запустить анимацию сразу для всех элементов
+		fadeElements.forEach((element) => element.classList.add('fade-shown'));
+	} else {
+		// Начать наблюдение за пересечением
+		fadeElements.forEach((element) => observer.observe(element));
+	}
 };
 
 export default {
