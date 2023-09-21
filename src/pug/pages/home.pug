@@ -33,6 +33,7 @@ main.home
 					)
 						if job.companyLogo
 							img.home__job-company-logo(
+								src=`${emptyImage}`
 								data-src=`${baseDir}images/${job.companyLogo}.png`
 								data-srcset=`${baseDir}images/${job.companyLogo}@2x.png 2x`
 								data-html2canvas-ignore
@@ -51,6 +52,7 @@ main.home
 
 		//- Декоративное изображение (жонглер)
 		img.home__decor-image.home__decor-image--juggler.fade-hidden(
+			src=`${emptyImage}`
 			data-src=`${baseDir}images/juggling-guy.png`
 			data-srcset=`${baseDir}images/juggling-guy.webp, ${baseDir}images/juggling-guy@2x.webp 2x, ${baseDir}images/juggling-guy@2x.png 2x`
 			data-html2canvas-ignore
@@ -82,6 +84,7 @@ main.home
 
 	//- Декоративное изображение (сердечко из пальцев)
 	img.home__decor-image.home__decor-image--fingers.fade-hidden(
+		src=`${emptyImage}`
 		data-src=`${baseDir}images/fingers-heart.png`
 		data-srcset=`${baseDir}images/fingers-heart.webp, ${baseDir}images/fingers-heart@2x.webp 2x, ${baseDir}images/fingers-heart@2x.png 2x`
 		data-html2canvas-ignore
