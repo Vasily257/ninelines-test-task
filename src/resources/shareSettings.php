@@ -2,7 +2,7 @@
 
 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https' : 'http';
 $host = $protocol . '://' . $_SERVER['HTTP_HOST'];
-$title = 'Summary of Vasily';
+$title = 'Resume of Vasily';
 $description = 'Summary of my experience, education and motivation';
 $image = $host . '/images/guy-with-laptop.png';
 
