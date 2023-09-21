@@ -38,7 +38,8 @@ To clone a project, you need to open desired directory and use the command:
 **HTTPS**: `git clone https://github.com/Vasily257/resume.git`
 **SSH**: `git clone git@github.com:Vasily257/resume.git`
 
-To start a project, you need to open the project folder in the terminal and use the command npm run start.
+To start a project, you need to open the project folder in the terminal and use the command `npm run start`.  
+But before that, you need to install Gulp CLI, if you don't have it: `npm install --global gulp-cli`.
 
 ## Status
 The project is closed, there are no plans for completion.

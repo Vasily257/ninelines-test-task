@@ -36,7 +36,8 @@
 **HTTPS**: `git clone https://github.com/Vasily257/resume.git`
 **SSH**: `git clone git@github.com:Vasily257/resume.git`
 
-Чтобы запустить проект, нужно открыть папку с проектом через терминал и использовать команду `npm run start`.
+Чтобы запустить проект, нужно открыть папку с проектом через терминал и использовать команду `npm run start`.  
+Но перед этим надо установить Gulp CLI, если у вас его нет: `npm install --global gulp-cli`.
 
 ## Статус
 Проект завершен, нет планов по доработке.
