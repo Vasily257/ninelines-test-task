@@ -6,7 +6,9 @@
 	"scripts": {
 		"prepare": "husky install",
 		"pre-commit": "lint-staged",
-		"start": "gulp"
+		"start": "gulp",
+		"build": "gulp build",
+		"deploy": "npm run build && scp -r ./build/* root@92.38.241.48:/home/resume"
 	},
 	"author": "Ninelines Agency <info@ninelines.agency>",
 	"license": "ISC",
