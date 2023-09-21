@@ -1,7 +1,7 @@
 [Russian version](https://github.com/Vasily257/resume/blob/master/README-RU.md)
 
 # Resume
-This project is a test task for the "layout designer" position at [Nine Lines](https://ninelines.agency/en/).
+This project is a test task for the «layout designer» position at [Nine Lines](https://ninelines.agency/en/).
 
 ## Functionality
 The project is a single-page site-resume with responsive layout built using flexbox and grid layout.  
@@ -11,7 +11,7 @@ The website has a preloader, a scroll indicator and a «Fade with shift» animat
 The site has several features:
 1. The sections order in the menu has been changed to match the content on the site.
 2. The site content is not the same as in the layout, because personal information is used, but Perfect Pixel is respected whenever possible.
-3. In the mobile layout, the "Skills" header has a height of 22px, but the site uses 20px, like other headers.
+3. In the mobile layout, the «Skills» header has a height of 22px, but the site uses 20px, like other headers.
 4. In the desktop layout, the image of the juggler goes beyond the grid column, so it is reduced to the column boundaries.
 5. There are no upper and lower waves on the site, as they are distorted on intermediate screen resolutions.
 6. `fade` animation has been added for all blocks of the site to make it more dynamic.
