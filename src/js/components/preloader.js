@@ -173,7 +173,7 @@ const init = () => {
 
 			// Скрыть прелоадер, если последнее изображение загрузилось
 			if (loadedBlobImages === imageCount) {
-				localStorage.setItem('preloaderStatus', 'shown');
+				localStorage.setItem('hasBeenLoaded', 'true');
 
 				hidePreloader();
 				enableScroll();
@@ -221,7 +221,7 @@ const init = () => {
 				imagesBytes.loaded += value.length;
 
 				// Сместить прелоадер
-				if (!localStorage.getItem('preloaderStatus')) {
+				if (!localStorage.getItem('hasBeenLoaded')) {
 					startPreloaderAnimation(imagesBytes.loaded / imagesBytes.total);
 				}
 			}
@@ -274,7 +274,7 @@ const init = () => {
 
 		await checkWebpBrowserSupport();
 
-		if (!localStorage.getItem('preloaderStatus')) {
+		if (!localStorage.getItem('hasBeenLoaded')) {
 			addPreloadOfPreloader();
 		}
 
