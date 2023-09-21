@@ -4,8 +4,8 @@
 This project is a test task for the "layout designer" position at [Nine Lines](https://ninelines.agency/en/).
 
 ## Functionality
-The project is a single-page site-resume with responsive layout built using flexbox and grid layout.
-The website has a preloader, a scroll indicator and a «Fade with shift» animation .
+The project is a single-page site-resume with responsive layout built using flexbox and grid layout.  
+The website has a preloader, a scroll indicator and a «Fade with shift» animation.  
 
 ## Features
 The site has several features:
@@ -30,13 +30,13 @@ But IE is not supported right now, so warnings are ignored. Alternatively, you c
 `Pug`, `SCSS`, `JS`, `Gulp`, `Webpack`
 
 ## Links
-Site: https://v1364358.hosted-by-vdsina.ru/resume/
+Site: https://v1364358.hosted-by-vdsina.ru/resume/  
 Layout/Еechnical specification: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0
 
 ## Usage
-To clone a project, you need to open desired directory and use the command:
-**HTTPS**: `git clone https://github.com/Vasily257/resume.git`
-**SSH**: `git clone git@github.com:Vasily257/resume.git`
+To clone a project, you need to open desired directory and use the command:  
+**HTTPS**: `git clone https://github.com/Vasily257/resume.git`  
+**SSH**: `git clone git@github.com:Vasily257/resume.git`  
 
 To start a project, you need to open the project folder in the terminal and use the command `npm run start`.  
 But before that, you need to install Gulp CLI, if you don't have it: `npm install --global gulp-cli`.
