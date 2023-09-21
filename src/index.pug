@@ -1,17 +1,19 @@
 extends pug/base
 
 prepend vars
-	- title = '<?= htmlspecialchars($title) ?>'
-	- description = '<?= htmlspecialchars($description) ?>'
-	- image = '<?= htmlspecialchars($image) ?>'
+	-
+		title = '<?= htmlspecialchars($title) ?>'
+		description = '<?= htmlspecialchars($description) ?>'
+		image = '<?= htmlspecialchars($image) ?>'
 
 append vars
-	- html.attrs.lang = 'en'
-
-	- link.icon16x16 = `${baseDir}images/favicon16x16.ico`
-	- link.icon32x32 = `${baseDir}images/favicon32x32.ico`
-	- link.icon96x96 = `${baseDir}images/favicon96x96.ico`
-	- link.icon128x128 = `${baseDir}images/favicon128x128.ico`
+	-
+		html.attrs.lang = 'en'
+	-
+		link.icon16x16 = `${baseDir}images/favicon16x16.ico`
+		link.icon32x32 = `${baseDir}images/favicon32x32.ico`
+		link.icon96x96 = `${baseDir}images/favicon96x96.ico`
+		link.icon128x128 = `${baseDir}images/favicon128x128.ico`
 
 block content
 	include pug/data
