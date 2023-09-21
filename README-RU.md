@@ -2,8 +2,8 @@
 Этот проект — тестовое задание для вакансии «HTML-верстальщик» компании [9 линий](https://ninelines.agency/).
 
 ## Функциональность
-Проект является одностраничным сайтом-резюме с отзывчивой версткой, построенной на flexbox и grid layout.
-На сайте есть прелоадер, индикатор скролла и анимация «Появление со смещением» (`fade`).
+Проект является одностраничным сайтом-резюме с отзывчивой версткой, построенной на flexbox и grid layout.  
+На сайте есть прелоадер, индикатор скролла и анимация «Появление со смещением» (`fade`).  
 
 ## Особенности
 У проекта есть несколько особенностей:
@@ -28,16 +28,16 @@
 `Pug`, `SCSS`, `JS`, `Gulp`, `Webpack`
 
 ## Ссылки
-Опубликованый сайт: https://v1364358.hosted-by-vdsina.ru/resume/
-Макет/Техническое задание: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0
+Опубликованый сайт: https://v1364358.hosted-by-vdsina.ru/resume/  
+Макет/Техническое задание: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0  
 
 ## Использование
-Чтобы склонировать проект, надо открыть нужную директорию и использовать команды:
-**HTTPS**: `git clone https://github.com/Vasily257/resume.git`
-**SSH**: `git clone git@github.com:Vasily257/resume.git`
+Чтобы склонировать проект, надо открыть нужную директорию и использовать команды:  
+**HTTPS**: `git clone https://github.com/Vasily257/resume.git`  
+**SSH**: `git clone git@github.com:Vasily257/resume.git`  
 
 Чтобы запустить проект, нужно открыть папку с проектом через терминал и использовать команду `npm run start`.  
-Но перед этим надо установить Gulp CLI, если у вас его нет: `npm install --global gulp-cli`.
+Но перед этим надо установить Gulp CLI, если у вас его нет: `npm install --global gulp-cli`.  
 
 ## Статус
 Проект завершен, нет планов по доработке.
