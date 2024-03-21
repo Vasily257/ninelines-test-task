@@ -30,7 +30,6 @@ But IE is not supported right now, so warnings are ignored. Alternatively, you c
 `Pug`, `SCSS`, `JS`, `Gulp`, `Webpack`
 
 ## Links
-Site: https://v1364358.hosted-by-vdsina.ru/resume/  
 Layout/Technical specification: https://www.figma.com/file/ct6rzbxMtNxSYp4eTXEWv6/Frontend-test?type=design&node-id=0-1&mode=design&t=i9sNcEw7V0NMRwUE-0
 
 ## Usage
